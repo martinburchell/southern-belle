@@ -22,7 +22,6 @@ ssd:
 	$(BEEB) putfile $(SSD_FILE) PATCH4 && \
 	$(BEEB) putfile $(SSD_FILE) PATCH5 && \
 	$(BEEB) putfile $(SSD_FILE) PATCH6 && \
-	$(BEEB) putfile $(SSD_FILE) RUNLFS && \
 	$(BEEB) putfile $(SSD_FILE) LOADMC && \
 	$(BEEB) putfile $(SSD_FILE) SB && \
 	$(BEEB) putfile $(SSD_FILE) SBDATA && \
