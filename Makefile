@@ -10,7 +10,7 @@ ssd:
 	$(RM) $(SSD_FILE) && \
 	$(BEEB) blank_ssd $(SSD_FILE) && \
 	$(BEEB) putfile $(SSD_FILE) BOOT && \
-	$(BEEB) putfile $(SSD_FILE) lfsconv.tok && \
+	$(BEEB) putfile $(SSD_FILE) dfsconv.tok && \
 	$(BEEB) putfile $(SSD_FILE) COMP1 && \
 	$(BEEB) putfile $(SSD_FILE) COMP2 && \
 	$(BEEB) putfile $(SSD_FILE) COMP3 && \
