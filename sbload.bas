@@ -1,0 +1,269 @@
+   10REM >SBLOAD
+   20REM Loader for Southern Belle
+   30K$ = "Press any key to continue"
+   40ON ERROR REPORT:PRINT K$:IFGETRUN
+   50MODE7
+   60VDU23;8202;0;0;0;
+   70HIMEM=&7B00
+   80IF !&3000=&74747372 ?&7BFF=2 ELSE ?&7BFF=0
+   90D%=0
+  100X%=5
+  110Y%=5
+  120F$=""
+  130PROCmenu
+  140REPEAT
+  150PROCkey
+  160UNTIL0
+  180DEFPROCpos
+  190PRINTTAB(X%,Y%+10);"Current position: ";
+  200S%=?&7BFF
+  210IFS%=0PRINT"Default";
+  220IFS%=1PRINTF$;
+  230IFS%=2PRINT"Unsaved";
+  240PRINT"         "
+  250ENDPROC
+  270DEFPROCbanner(S$)
+  280LOCAL L%,X%
+  290L% = LENS$
+  300X% = (40-L%)/2 -1
+  310FORA%=1TO2
+  320PRINTCHR$132;CHR$157;CHR$131;CHR$141;TAB(X%);S$;STRING$(X%-1," ");CHR$156
+  330NEXT
+  340ENDPROC
+  360DEFPROCmenu
+  370CLS
+  380PROCbanner("Southern Belle")
+  390PRINTTAB(X%,Y%+1);"f0 Run Game"
+  400PRINTTAB(X%,Y%+2);"f1 Status"
+  410PRINTTAB(X%,Y%+3);"f2 Load position"
+  420PRINTTAB(X%,Y%+4);"f3 Save position"
+  430PRINTTAB(X%,Y%+6);"f8 Default position"
+  440PROCpos
+  450ENDPROC
+  470DEFPROCcat
+  480PRINT "Drive ?"
+  490D$=GET$
+  500OSCLI("DRIVE "+D$)
+  510*.
+  520ENDPROC
+  540DEFPROCload
+  550PROCcat
+  560INPUT "Filename ";F$
+  570OSCLI("LOAD "+F$+" 7B00")
+  580?&7BFF=1
+  590ENDPROC
+  610DEFPROCsave
+  620PROCcat
+  630INPUT "Filename ";F$
+  640OSCLI("SAVE "+F$+" 7B00+A0 0 0")
+  650?&7BFF=1
+  660ENDPROC
+  680DEFPROCdefault
+  690?&7BFF=0:PROCpos
+  700ENDPROC
+  720DEFPROCrun
+  730*RUN LOADMC
+  740END
+  760DEFPROCdump
+  770RESTORE
+  780FOR A%=0 TO &9F
+  790READ A$
+  800IF A$<>"" PRINT;A$;" = ";?(&7B00+A%)
+  810NEXT
+  820ENDPROC
+  840DEFPROCstatus
+  850IF ?&7BFF<>0 PROCdump ELSE PRINT "Default position"
+  870PRINT K$
+  880IFGET
+  890ENDPROC
+  910DEFPROCkey
+  920C%=FALSE
+  930IF INKEY(-33) PROCrun
+  940IF INKEY(-114) C%=TRUE:PROCstatus
+  950IF INKEY(-115) C%=TRUE:PROCload
+  960IF INKEY(-116) C%=TRUE:PROCsave
+  970IF INKEY(-119) PROCdefault
+  990IF C% PROCmenu
+ 1000ENDPROC
+ 1020REM 0
+ 1030DATA ""
+ 1040DATA ""
+ 1050DATA ""
+ 1060DATA ""
+ 1070DATA ""
+ 1080DATA ""
+ 1090REM &6
+ 1100DATA "Regulator setting"
+ 1110DATA "Firebox setting"
+ 1120DATA "Vacuum brake setting"
+ 1130DATA "Cut-off setting"
+ 1140DATA "Injectors setting"
+ 1150DATA "Blower setting"
+ 1160DATA "Dampers setting"
+ 1170DATA ""
+ 1180DATA "Difficulty 0-7"
+ 1190DATA "Control level"
+ 1200REM &10
+ 1210DATA ""
+ 1220DATA ""
+ 1230DATA ""
+ 1240DATA ""
+ 1250REM &14
+ 1260DATA "Time: Seconds"
+ 1270DATA "Time: Minutes"
+ 1280DATA "Time: Hours"
+ 1290DATA "Smoke on/off flag"
+ 1300DATA "Smoke type 1-4"
+ 1310DATA ""
+ 1320REM &1A
+ 1330DATA "0=Normal 5=Accelerated time"
+ 1340DATA ""
+ 1350REM &1C
+ 1360DATA "Timetable flag"
+ 1370REM &1D
+ 1380DATA "Held flag"
+ 1390DATA ""
+ 1400DATA ""
+ 1410REM &20
+ 1420DATA "Coal"
+ 1430DATA ""
+ 1440REM &22
+ 1450DATA "Coal level"
+ 1460DATA ""
+ 1470DATA ""
+ 1480DATA ""
+ 1490DATA ""
+ 1500DATA ""
+ 1510DATA ""
+ 1520DATA ""
+ 1530DATA ""
+ 1540DATA ""
+ 1550DATA ""
+ 1560DATA ""
+ 1570DATA ""
+ 1580DATA ""
+ 1590REM &30
+ 1600DATA ""
+ 1610DATA ""
+ 1620DATA ""
+ 1630DATA ""
+ 1640DATA ""
+ 1650DATA ""
+ 1660DATA ""
+ 1670DATA ""
+ 1680DATA ""
+ 1690DATA ""
+ 1700REM &3A
+ 1710DATA "Speed"
+ 1720DATA ""
+ 1730DATA ""
+ 1740DATA ""
+ 1750DATA ""
+ 1760DATA ""
+ 1770DATA ""
+ 1780REM &41
+ 1790DATA "Timekeeping %"
+ 1800DATA "Safety %"
+ 1810DATA ""
+ 1820DATA ""
+ 1830REM &45
+ 1840DATA "# time checks"
+ 1850DATA "whistle status non zero if yes"
+ 1860DATA ""
+ 1870DATA ""
+ 1880DATA ""
+ 1890DATA ""
+ 1900DATA ""
+ 1910DATA ""
+ 1920DATA ""
+ 1930DATA ""
+ 1940DATA ""
+ 1950REM &50
+ 1960DATA ""
+ 1970DATA ""
+ 1980DATA ""
+ 1990DATA ""
+ 2000DATA ""
+ 2010DATA ""
+ 2020REM &56
+ 2030DATA "Stopping time 1"
+ 2040DATA "Stopping time 2"
+ 2050DATA "Stopping time 3"
+ 2060DATA "Stopping time 4"
+ 2070DATA "Stopping time 5"
+ 2080DATA "Stopping time 6"
+ 2090DATA "Stopping time 7"
+ 2100DATA "Stopping time 8"
+ 2110DATA "Stopping time 9"
+ 2120DATA "Stopping time 10"
+ 2130REM &60
+ 2140DATA ""
+ 2150DATA ""
+ 2160DATA ""
+ 2170DATA ""
+ 2180DATA ""
+ 2190DATA ""
+ 2200REM &66
+ 2210DATA "Number of events"
+ 2220REM &67
+ 2230DATA "Event"
+ 2240DATA "Event"
+ 2250DATA "Event"
+ 2260DATA "Event"
+ 2270DATA "Event"
+ 2280DATA "Event"
+ 2290DATA "Event"
+ 2300DATA "Event"
+ 2310DATA "Event"
+ 2320REM &70
+ 2330DATA "Event"
+ 2340DATA "Event"
+ 2350DATA "Event"
+ 2360DATA "Event"
+ 2370DATA "Event"
+ 2380DATA "Event"
+ 2390DATA "Event"
+ 2400DATA ""
+ 2410DATA ""
+ 2420DATA ""
+ 2430DATA ""
+ 2440DATA ""
+ 2450DATA ""
+ 2460DATA ""
+ 2470DATA ""
+ 2480DATA ""
+ 2490REM &80
+ 2500DATA ""
+ 2510DATA ""
+ 2520DATA ""
+ 2530DATA ""
+ 2540REM &84
+ 2550DATA "Noise level"
+ 2560DATA ""
+ 2570DATA ""
+ 2580DATA ""
+ 2590DATA ""
+ 2600DATA ""
+ 2610DATA ""
+ 2620DATA ""
+ 2630DATA ""
+ 2640DATA ""
+ 2650DATA ""
+ 2660DATA ""
+ 2670REM &90
+ 2680DATA ""
+ 2690DATA ""
+ 2700DATA ""
+ 2710DATA ""
+ 2720DATA ""
+ 2730DATA ""
+ 2740DATA ""
+ 2750DATA ""
+ 2760DATA ""
+ 2770DATA ""
+ 2780DATA ""
+ 2790DATA ""
+ 2800DATA ""
+ 2810DATA ""
+ 2820DATA ""
+ 2830DATA ""
