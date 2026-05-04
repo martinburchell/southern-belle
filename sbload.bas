@@ -1,7 +1,6 @@
    10REM >SBLOAD
    20REM Loader for Southern Belle
    30K$ = "Press any key to continue"
-   40ON ERROR REPORT:PRINT K$:IFGETRUN
    50MODE7
    60VDU23;8202;0;0;0;
    70HIMEM=&7B00
