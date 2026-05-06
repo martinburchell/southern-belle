@@ -1,5 +1,6 @@
    10REM >SBLOAD
    20REM Loader for Southern Belle
+   25CLOSE#0
    30K$ = "Press any key to continue"
    50MODE7
    60VDU23;8202;0;0;0;
