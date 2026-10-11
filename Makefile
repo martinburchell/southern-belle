@@ -1,10 +1,13 @@
 BASICTOOL:= basictool
 BEEB := beeb
-SSD_FILE := southern-belle.ssd
+BEEBASM := beebasm
+DIFF:= diff
 RM := rm -f
+SSD_FILE := southern-belle.ssd
+
 PROJECT_ROOT := .
 
-ssd:
+ssd: assemble
 	$(BASICTOOL) -t dfsconv.bas > dfsconv.tok && \
 	$(BASICTOOL) -t loader.bas > loader.tok && \
 	$(BASICTOOL) -t sbload.bas > sbload.tok && \
@@ -30,5 +33,9 @@ ssd:
 	$(BEEB) putfile $(SSD_FILE) sbload.tok && \
     $(BEEB) putfile $(SSD_FILE) loader.tok && \
     $(BEEB) opt4 $(SSD_FILE) 3
+
+assemble:
+	$(BEEBASM) -i southern-belle.asm -o SB
+	$(DIFF) SB SB-ref
 
 .PHONY: ssd

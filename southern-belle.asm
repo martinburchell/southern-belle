@@ -4214,4 +4214,3 @@ save pydis_start, pydis_end
 ;     Number of data words     = 0 bytes
 ;     Number of string bytes   = 4617 bytes
 ;     Number of strings        = 797
-
