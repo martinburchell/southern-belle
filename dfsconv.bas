@@ -71,7 +71,7 @@
   840LDA load_flag
   850BNE out
   860LDA#0
-  870LDX#&A2
+  870LDX#&A0
   880.zloop
   890STA 0,X
   900DEX
