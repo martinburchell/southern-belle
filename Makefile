@@ -5,6 +5,7 @@ RM := rm -f
 PROJECT_ROOT := .
 
 ssd:
+	$(BASICTOOL) -t dfsconv.bas > dfsconv.tok && \
 	$(BASICTOOL) -t loader.bas > loader.tok && \
 	$(BASICTOOL) -t sbload.bas > sbload.tok && \
 	$(RM) $(SSD_FILE) && \
