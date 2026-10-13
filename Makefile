@@ -36,6 +36,6 @@ ssd: assemble
 
 assemble:
 	$(BEEBASM) -i southern-belle.asm -o SB
-	$(DIFF) SB SB-ref
+	$(DIFF) SB SB.orig
 
 .PHONY: ssd

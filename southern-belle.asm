@@ -1,75 +1,106 @@
+; Constants
+event_start_of_vertical_sync                        = 4
+osbyte_disable_event                                = 13
+osbyte_enable_event                                 = 14
+osbyte_explode_chars                                = 20
+osbyte_read_write_bell_duration                     = 214
+osbyte_read_write_bell_frequency                    = 213
+osbyte_read_write_ctrl_function_key_status          = 227
+osbyte_read_write_ctrl_shift_function_key_status    = 228
+osbyte_read_write_escape_status                     = 229
+osbyte_read_write_function_key_status               = 225
+osbyte_read_write_shift_function_key_status         = 226
+osbyte_select_adc_channels                          = 16
+osbyte_select_input_stream                          = 2
+osbyte_select_output_stream                         = 3
+osbyte_set_cursor_editing                           = 4
+osbyte_set_keyboard_repeat_delay                    = 11
+osbyte_tape                                         = 140
+osword_envelope                                     = 8
+
 ; Memory locations
-l0000   = &0000
-l0001   = &0001
-l0005   = &0005
-l0008   = &0008
-l000b   = &000b
-l000f   = &000f
-l0015   = &0015
-l0018   = &0018
-l001a   = &001a
-l001c   = &001c
-l001e   = &001e
-l001f   = &001f
-l0020   = &0020
-l003a   = &003a
-l003c   = &003c
-l003d   = &003d
-l003f   = &003f
-l0048   = &0048
-l0061   = &0061
-l0066   = &0066
-l0067   = &0067
-l007b   = &007b
-l007d   = &007d
-l007e   = &007e
-l007f   = &007f
-l0080   = &0080
-l0081   = &0081
-l0082   = &0082
-l0083   = &0083
-l0084   = &0084
-l0088   = &0088
-l0089   = &0089
-l008a   = &008a
-l008b   = &008b
-l00e0   = &00e0
-l00fc   = &00fc
-l0204   = &0204
-l0205   = &0205
-l0220   = &0220
-l0221   = &0221
-l0248   = &0248
-l0300   = &0300
-l036f   = &036f
-l07d0   = &07d0
-l0881   = &0881
-l0882   = &0882
-l0900   = &0900
-l0947   = &0947
-l0a00   = &0a00
-l0a66   = &0a66
-l0bcf   = &0bcf
-l76c1   = &76c1
-l7800   = &7800
-lf020   = &f020
-lfe20   = &fe20
-lfe21   = &fe21
-lfe44   = &fe44
-lfe45   = &fe45
-lfe47   = &fe47
-lfe4d   = &fe4d
-lfe64   = &fe64
-lfe65   = &fe65
-lfe66   = &fe66
-lfe67   = &fe67
-lfe6b   = &fe6b
-lfe6d   = &fe6d
-lfe6e   = &fe6e
-lffab   = &ffab
-lffee   = &ffee
-lfff4   = &fff4
-lfff7   = &fff7
+l0000               = &0000
+l0001               = &0001
+l0004               = &0004
+l0005               = &0005
+l0008               = &0008
+l000b               = &000b
+l000e               = &000e
+l000f               = &000f
+l0015               = &0015
+l0018               = &0018
+l001a               = &001a
+l001b               = &001b
+l001c               = &001c
+l001e               = &001e
+l001f               = &001f
+l0020               = &0020
+l0024               = &0024
+l003a               = &003a
+l003c               = &003c
+l003d               = &003d
+l003f               = &003f
+l0040               = &0040
+l0047               = &0047
+l0048               = &0048
+l0061               = &0061
+l0066               = &0066
+l0067               = &0067
+l007b               = &007b
+l007d               = &007d
+l007e               = &007e
+l007f               = &007f
+l0080               = &0080
+l0081               = &0081
+l0082               = &0082
+l0083               = &0083
+l0084               = &0084
+l0088               = &0088
+l0089               = &0089
+l008a               = &008a
+l008b               = &008b
+l00e0               = &00e0
+l00fc               = &00fc
+irq1v               = &0204
+evntv               = &0220
+l0248               = &0248
+l0300               = &0300
+l036f               = &036f
+l06e1               = &06e1
+l07d0               = &07d0
+l0881               = &0881
+l0882               = &0882
+l0900               = &0900
+l0902               = &0902
+l0941               = &0941
+l0947               = &0947
+l094a               = &094a
+l0967               = &0967
+l0a00               = &0a00
+l0a66               = &0a66
+l0bcf               = &0bcf
+l0d49               = &0d49
+l76c1               = &76c1
+l7800               = &7800
+lf020               = &f020
+video_ula_control   = &fe20
+video_ula_palette   = &fe21
+system_via_t1c_l    = &fe44
+system_via_t1c_h    = &fe45
+system_via_t1l_h    = &fe47
+system_via_ifr      = &fe4d
+user_via_t1c_l      = &fe64
+user_via_t1c_h      = &fe65
+user_via_t1l_l      = &fe66
+user_via_t1l_h      = &fe67
+user_via_acr        = &fe6b
+user_via_ifr        = &fe6d
+user_via_ier        = &fe6e
+lffab               = &ffab
+oswrch              = &ffee
+osword              = &fff1
+osbyte              = &fff4
+oscli               = &fff7
 
     org &0e00
 
@@ -135,20 +166,79 @@ lfff7   = &fff7
 .l0efb
     equb &0f, &c9, &32, &90,   9, &a5, &46, &d0,   5, &a9, &0d, &20   ; 0efb: 0f c9 32... ..2
     equb &47,   9, &a5, &19, &c9, &3c, &b0, &0e, &a9, &0a, &20,   0   ; 0f07: 47 09 a5... G..
-    equb   9, &a5, &41, &38, &e9, &0a, &90,   2, &85                  ; 0f13: 09 a5 41... ..A
-    equs "ALg"                                                        ; 0f1c: 41 4c 67    ALg
-    equb   9, &a5,   2, &c9, &cb, &90, &40, &d0, &0c, &a5,   4, &c9   ; 0f1f: 09 a5 02... ...
-    equb &3b, &90, &12, &a5, &3a, &c9,   5, &90,   4, &a9,   7, &d0   ; 0f2b: 3b 90 12... ;..
-    equb &2a, &a9, &0e, &20, &41,   9, &4c, &60, &0a, &c9, &20, &90   ; 0f37: 2a a9 0e... *..
-    equb &22, &a5, &3c,   5, &3d, &d0, &1c, &a5,   8, &c9,   3, &90   ; 0f43: 22 a5 3c... ".<
-    equb   5, &a9, &0b, &20, &41,   9, &a5,   4, &c9, &37, &b0,   5   ; 0f4f: 05 a9 0b... ...
-    equb &a9,   9, &20, &41,   9, &a9,   8, &85, &1b, &d0, &b7, &a5   ; 0f5b: a9 09 20... ..
-    equb &0e, &c9, &32, &90, &34, &a5, &40, &e5, &3a, &b0, &0c, &a4   ; 0f67: 0e c9 32... ..2
-    equb   5, &c9, &fa, &b0, &18, &a9,   6, &85, &1b, &d0, &22, &a2   ; 0f73: 05 c9 fa... ...
-    equb   0, &a0,   1, &b1, &24, &c9, &34, &d0, &16, &a5, &3a, &c9   ; 0f7f: 00 a0 01... ...
-    equb &1f, &90, &10, &a0, &21, &a5, &47, &d0, &0c, &a9, &10, &20   ; 0f8b: 1f 90 10... ...
-    equb   2,   9, &20, &4a,   9, &a2,   1, &86, &47, &a5, &1e        ; 0f97: 02 09 20... ..
+    equb   9, &a5, &41, &38, &e9, &0a, &90,   2, &85, &41             ; 0f13: 09 a5 41... ..A
 
+; &0f1d referenced 1 time by &0f64
+.c0f1d
+    jmp l0967                                                         ; 0f1d: 4c 67 09    Lg.
+
+    equb &a5,   2, &c9, &cb, &90, &40, &d0, &0c, &a5,   4, &c9, &3b   ; 0f20: a5 02 c9... ...
+    equb &90, &12, &a5, &3a, &c9,   5, &90,   4, &a9,   7, &d0, &2a   ; 0f2c: 90 12 a5... ...
+    equb &a9, &0e, &20, &41,   9, &4c, &60, &0a, &c9, &20             ; 0f38: a9 0e 20... ..
+
+.handle_evntv
+    bcc c0f66                                                         ; 0f42: 90 22       ."
+    lda l003c                                                         ; 0f44: a5 3c       .<
+    ora l003d                                                         ; 0f46: 05 3d       .=
+    bne c0f66                                                         ; 0f48: d0 1c       ..
+    lda l0008                                                         ; 0f4a: a5 08       ..
+    cmp #3                                                            ; 0f4c: c9 03       ..
+    bcc c0f55                                                         ; 0f4e: 90 05       ..
+    lda #&0b                                                          ; 0f50: a9 0b       ..
+    jsr l0941                                                         ; 0f52: 20 41 09     A.
+; &0f55 referenced 1 time by &0f4e
+.c0f55
+    lda l0004                                                         ; 0f55: a5 04       ..
+    cmp #&37 ; '7'                                                    ; 0f57: c9 37       .7
+    bcs c0f60                                                         ; 0f59: b0 05       ..
+    lda #9                                                            ; 0f5b: a9 09       ..
+    jsr l0941                                                         ; 0f5d: 20 41 09     A.
+; &0f60 referenced 1 time by &0f59
+.c0f60
+    lda #8                                                            ; 0f60: a9 08       ..
+    sta l001b                                                         ; 0f62: 85 1b       ..
+    bne c0f1d                                                         ; 0f64: d0 b7       ..             ; ALWAYS branch
+
+; &0f66 referenced 2 times by &0f42, &0f48
+.c0f66
+    lda l000e                                                         ; 0f66: a5 0e       ..
+    cmp #&32 ; '2'                                                    ; 0f68: c9 32       .2
+    bcc c0fa0                                                         ; 0f6a: 90 34       .4
+    lda l0040                                                         ; 0f6c: a5 40       .@
+    sbc l003a                                                         ; 0f6e: e5 3a       .:
+    bcs c0f7e                                                         ; 0f70: b0 0c       ..
+    ldy l0005                                                         ; 0f72: a4 05       ..
+    cmp #&fa                                                          ; 0f74: c9 fa       ..
+    bcs c0f90                                                         ; 0f76: b0 18       ..
+    lda #6                                                            ; 0f78: a9 06       ..
+    sta l001b                                                         ; 0f7a: 85 1b       ..
+    bne c0fa0                                                         ; 0f7c: d0 22       ."             ; ALWAYS branch
+
+; &0f7e referenced 1 time by &0f70
+.c0f7e
+    ldx #0                                                            ; 0f7e: a2 00       ..
+    ldy #1                                                            ; 0f80: a0 01       ..
+    lda (l0024),y                                                     ; 0f82: b1 24       .$
+    cmp #&34 ; '4'                                                    ; 0f84: c9 34       .4
+    bne c0f9e                                                         ; 0f86: d0 16       ..
+    lda l003a                                                         ; 0f88: a5 3a       .:
+    cmp #&1f                                                          ; 0f8a: c9 1f       ..
+    bcc c0f9e                                                         ; 0f8c: 90 10       ..
+    ldy #&21 ; '!'                                                    ; 0f8e: a0 21       .!
+; &0f90 referenced 1 time by &0f76
+.c0f90
+    lda l0047                                                         ; 0f90: a5 47       .G
+    bne c0fa0                                                         ; 0f92: d0 0c       ..
+    lda #&10                                                          ; 0f94: a9 10       ..
+    jsr l0902                                                         ; 0f96: 20 02 09     ..
+    jsr l094a                                                         ; 0f99: 20 4a 09     J.
+    ldx #1                                                            ; 0f9c: a2 01       ..
+; &0f9e referenced 2 times by &0f86, &0f8c
+.c0f9e
+    stx l0047                                                         ; 0f9e: 86 47       .G
+; &0fa0 referenced 3 times by &0f6a, &0f7c, &0f92
+.c0fa0
+    lda l001e                                                         ; 0fa0: a5 1e       ..
 ; &0fa2 referenced 1 time by &14a2
 .c0fa2
 l0fa3 = c0fa2+1
@@ -168,13 +258,13 @@ l0fa5 = c0fa4+1
     equb &a5                                                          ; 0fb0: a5          .
 
 ; &0fb1 referenced 1 time by &14d5
-.c0fb1
+.handle_irq1v
     adc l07d0,x                                                       ; 0fb1: 7d d0 07    }..
-; overlapping: bne return_9                                           ; 0fb2: d0 07       ..
+; overlapping: bne return_10                                          ; 0fb2: d0 07       ..
     inc l007d                                                         ; 0fb4: e6 7d       .}
     lda #&0f                                                          ; 0fb6: a9 0f       ..
     jsr l0947                                                         ; 0fb8: 20 47 09     G.
-.return_9
+.return_10
     rts                                                               ; 0fbb: 60          `
 
 ; &0fbc referenced 3 times by &0fa4, &0faa, &0fae
@@ -284,18 +374,18 @@ l0fa5 = c0fa4+1
     sta l76c1 - 1,x                                                   ; 120a: 9d c0 76    ..v
     dex                                                               ; 120d: ca          .
     bne loop_c1207                                                    ; 120e: d0 f7       ..
-    lda #&8c                                                          ; 1210: a9 8c       ..
+    lda #osbyte_tape                                                  ; 1210: a9 8c       ..
     ldx #3                                                            ; 1212: a2 03       ..
-    jsr lfff4                                                         ; 1214: 20 f4 ff     ..
+    jsr osbyte                                                        ; 1214: 20 f4 ff     ..            ; Select TAPE filing system at 300 baud (X=3)
     ldx #&51 ; 'Q'                                                    ; 1217: a2 51       .Q
     ldy #&0d                                                          ; 1219: a0 0d       ..
     pla                                                               ; 121b: 68          h
     beq c1222                                                         ; 121c: f0 04       ..
-    ldx #&49 ; 'I'                                                    ; 121e: a2 49       .I
-    ldy #&0d                                                          ; 1220: a0 0d       ..
+    ldx #<l0d49                                                       ; 121e: a2 49       .I
+    ldy #>l0d49                                                       ; 1220: a0 0d       ..
 ; &1222 referenced 1 time by &121c
 .c1222
-    jsr lfff7                                                         ; 1222: 20 f7 ff     ..
+    jsr oscli                                                         ; 1222: 20 f7 ff     ..
     ldx #0                                                            ; 1225: a2 00       ..
 ; &1227 referenced 1 time by &122e
 .loop_c1227
@@ -318,7 +408,7 @@ l0fa5 = c0fa4+1
     dex                                                               ; 1241: ca          .
     bne loop_c123b                                                    ; 1242: d0 f7       ..
     lda #6                                                            ; 1244: a9 06       ..
-    jmp lffee                                                         ; 1246: 4c ee ff    L..
+    jmp oswrch                                                        ; 1246: 4c ee ff    L..            ; Write character 6
 
     equs "*LOAD A"                                                    ; 1249: 2a 4c 4f... *LO
     equb &0d                                                          ; 1250: 0d          .
@@ -456,17 +546,17 @@ l139a = c1399+1
     pha                                                               ; 144b: 48          H
     inc l0000                                                         ; 144c: e6 00       ..
     lda #&d0                                                          ; 144e: a9 d0       ..
-    sta lfe44                                                         ; 1450: 8d 44 fe    .D.
+    sta system_via_t1c_l                                              ; 1450: 8d 44 fe    .D.
     lda #7                                                            ; 1453: a9 07       ..
-    sta lfe45                                                         ; 1455: 8d 45 fe    .E.
+    sta system_via_t1c_h                                              ; 1455: 8d 45 fe    .E.
     lda #&10                                                          ; 1458: a9 10       ..
     sta lffab                                                         ; 145a: 8d ab ff    ...
     lda #&27 ; '''                                                    ; 145d: a9 27       .'
-    sta lfe47                                                         ; 145f: 8d 47 fe    .G.
+    sta system_via_t1l_h                                              ; 145f: 8d 47 fe    .G.
     lda l0061                                                         ; 1462: a5 61       .a
     bne c146d                                                         ; 1464: d0 07       ..
     lda #&0b                                                          ; 1466: a9 0b       ..
-    sta lfe20                                                         ; 1468: 8d 20 fe    . .
+    sta video_ula_control                                             ; 1468: 8d 20 fe    . .
     bne c149c                                                         ; 146b: d0 2f       ./             ; ALWAYS branch
 
 ; &146d referenced 1 time by &1464
@@ -523,13 +613,13 @@ l139a = c1399+1
     pha                                                               ; 14b7: 48          H
     lda l0061                                                         ; 14b8: a5 61       .a
     beq c14ce                                                         ; 14ba: f0 12       ..
-    lda lfe4d                                                         ; 14bc: ad 4d fe    .M.
+    lda system_via_ifr                                                ; 14bc: ad 4d fe    .M.
     bpl c14c5                                                         ; 14bf: 10 04       ..
     and #2                                                            ; 14c1: 29 02       ).
     bne c14d8                                                         ; 14c3: d0 13       ..
 ; &14c5 referenced 1 time by &14bf
 .c14c5
-    lda lfe6d                                                         ; 14c5: ad 6d fe    .m.
+    lda user_via_ifr                                                  ; 14c5: ad 6d fe    .m.
     bpl c14ce                                                         ; 14c8: 10 04       ..
     and #&40 ; '@'                                                    ; 14ca: 29 40       )@
     bne c14f6                                                         ; 14cc: d0 28       .(
@@ -542,21 +632,21 @@ l139a = c1399+1
     tax                                                               ; 14d2: aa          .
     pla                                                               ; 14d3: 68          h
     tay                                                               ; 14d4: a8          .
-    jmp c0fb1                                                         ; 14d5: 4c b1 0f    L..
+    jmp handle_irq1v                                                  ; 14d5: 4c b1 0f    L..
 
 ; &14d8 referenced 1 time by &14c3
 .c14d8
     lda #&8a                                                          ; 14d8: a9 8a       ..
-    sta lfe64                                                         ; 14da: 8d 64 fe    .d.
+    sta user_via_t1c_l                                                ; 14da: 8d 64 fe    .d.
     lda #&10                                                          ; 14dd: a9 10       ..
-    sta lfe65                                                         ; 14df: 8d 65 fe    .e.
+    sta user_via_t1c_h                                                ; 14df: 8d 65 fe    .e.
     lda #&c0                                                          ; 14e2: a9 c0       ..
-    sta lfe6e                                                         ; 14e4: 8d 6e fe    .n.
+    sta user_via_ier                                                  ; 14e4: 8d 6e fe    .n.
     ldy #&10                                                          ; 14e7: a0 10       ..
 ; &14e9 referenced 1 time by &14f0
 .loop_c14e9
     lda l036f,y                                                       ; 14e9: b9 6f 03    .o.
-    sta lfe21                                                         ; 14ec: 8d 21 fe    .!.
+    sta video_ula_palette                                             ; 14ec: 8d 21 fe    .!.
     dey                                                               ; 14ef: 88          .
     bne loop_c14e9                                                    ; 14f0: d0 f7       ..
     lda #4                                                            ; 14f2: a9 04       ..
@@ -564,33 +654,33 @@ l139a = c1399+1
 
 ; &14f6 referenced 1 time by &14cc
 .c14f6
-    sta lfe6d                                                         ; 14f6: 8d 6d fe    .m.
+    sta user_via_ifr                                                  ; 14f6: 8d 6d fe    .m.
     ldy l0001                                                         ; 14f9: a4 01       ..
     lda l0fa5,y                                                       ; 14fb: b9 a5 0f    ...
     iny                                                               ; 14fe: c8          .
     clc                                                               ; 14ff: 18          .
 ; &1500 referenced 1 time by &1505
 .loop_c1500
-    sta lfe21                                                         ; 1500: 8d 21 fe    .!.
+    sta video_ula_palette                                             ; 1500: 8d 21 fe    .!.
     adc #&10                                                          ; 1503: 69 10       i.
     bpl loop_c1500                                                    ; 1505: 10 f9       ..
     lda l0fa5,y                                                       ; 1507: b9 a5 0f    ...
     iny                                                               ; 150a: c8          .
 ; &150b referenced 1 time by &1510
 .loop_c150b
-    sta lfe21                                                         ; 150b: 8d 21 fe    .!.
+    sta video_ula_palette                                             ; 150b: 8d 21 fe    .!.
     adc #&10                                                          ; 150e: 69 10       i.
     bcc loop_c150b                                                    ; 1510: 90 f9       ..
     lda #8                                                            ; 1512: a9 08       ..
 ; &1514 referenced 1 time by &14f4
 .c1514
-    sta lfe20                                                         ; 1514: 8d 20 fe    . .
+    sta video_ula_control                                             ; 1514: 8d 20 fe    . .
     sta l0248                                                         ; 1517: 8d 48 02    .H.
     lda l0fa5,y                                                       ; 151a: b9 a5 0f    ...
-    sta lfe66                                                         ; 151d: 8d 66 fe    .f.
+    sta user_via_t1l_l                                                ; 151d: 8d 66 fe    .f.
     iny                                                               ; 1520: c8          .
     lda l0fa5,y                                                       ; 1521: b9 a5 0f    ...
-    sta lfe67                                                         ; 1524: 8d 67 fe    .g.
+    sta user_via_t1l_h                                                ; 1524: 8d 67 fe    .g.
     iny                                                               ; 1527: c8          .
     sty l0001                                                         ; 1528: 84 01       ..
     bne c14ce                                                         ; 152a: d0 a2       ..
@@ -694,10 +784,20 @@ l139a = c1399+1
     equb &13, &20, &26, &13, &c8, &20, &c2, &12, &a9,   4, &4c, &ee   ; 1806: 13 20 26... . &
     equb &ff, &18, &40,   1, &94,   3, &bc,   3, &ac,   3, &10, &1a   ; 1812: ff 18 40... ..@
     equb   5, &19,   4, &40,   1, &ac,   3, &ff, &b1, &88, &f0,   9   ; 181e: 05 19 04... ...
-    equb &aa, &a9, &20, &20, &ee, &ff, &ca, &d0, &f8, &60, &a2, &a9   ; 182a: aa a9 20... ..
-    equb &86, &88, &a2, &2c, &86, &89, &a0,   0, &29, &3f, &f0, &10   ; 1836: 86 88 a2... ...
-    equb &aa, &b1, &88, &e6, &88, &d0,   2, &e6, &89, &c9, &ff, &d0   ; 1842: aa b1 88... ...
-    equb &f4, &ca, &d0, &f1                                           ; 184e: f4 ca d0... ...
+    equb &aa                                                          ; 182a: aa          .
+
+; &182b referenced 1 time by &1831
+.loop_c182b
+    ; print character 32 repeatedly
+    lda #&20 ; ' '                                                    ; 182b: a9 20       .
+    jsr oswrch                                                        ; 182d: 20 ee ff     ..            ; Write character 32
+    dex                                                               ; 1830: ca          .
+    bne loop_c182b                                                    ; 1831: d0 f8       ..
+    rts                                                               ; 1833: 60          `
+
+    equb &a2, &a9, &86, &88, &a2, &2c, &86, &89, &a0,   0, &29, &3f   ; 1834: a2 a9 86... ...
+    equb &f0, &10, &aa, &b1, &88, &e6, &88, &d0,   2, &e6, &89, &c9   ; 1840: f0 10 aa... ...
+    equb &ff, &d0, &f4, &ca, &d0, &f1                                 ; 184c: ff d0 f4... ...
 
 ; &1852 referenced 1 time by &187a
 .return_4
@@ -859,14 +959,19 @@ l139a = c1399+1
     equb &e0, &ff, &b0, &fb, &c9, &31, &90, &f7, &c9, &36, &b0, &f3   ; 1ce4: e0 ff b0... ...
     equb &85, &0f, &a5,   0, &29, &0f, &69,   7, &85, &11, &20, &f6   ; 1cf0: 85 0f a5... ...
     equs "+ c' $, o,"                                                 ; 1cfc: 2b 20 63... + c
-    equb &a2, &3e, &a0, &1b, &20, &34, &0e, &20, &e0, &ff, &c9, &0d   ; 1d06: a2 3e a0... .>.
-    equb &d0, &f9, &20, &66, &15, &20, &d4, &12, &20, &66, &1b, &a9   ; 1d12: d0 f9 20... ..
-    equb &16, &20, &87, &28, &20, &9b, &0d, &a9, &33, &85, &19, &a9   ; 1d1e: 16 20 87... . .
-    equb   0, &85, &87, &85,   0, &a9, &ca, &a0,   0, &a2, &30, &20   ; 1d2a: 00 85 87... ...
-    equb &f4, &ff, &a2, &fd, &a5,   6, &f0,   6, &a5,   9, &f0,   2   ; 1d36: f4 ff a2... ...
-    equb &a6, &84, &8e, &98, &0f, &a5, &7f, &d0,   4, &8a, &20, &13   ; 1d42: a6 84 8e... ...
-    equb &0e, &a2, &e4, &a0,   1, &b1, &24, &c9, &22, &d0,   2, &a2   ; 1d4e: 0e a2 e4... ...
-    equb &e5, &e4, &87, &f0,   6, &86, &87, &8a, &20, &13, &0e        ; 1d5a: e5 e4 87... ...
+    equb &a2, &3e, &a0, &1b, &20, &34, &0e, &20, &e0, &ff             ; 1d06: a2 3e a0... .>.
+; &1d10 referenced 2 times by &21e9, &21ee
+.l1d10
+    equb &c9                                                          ; 1d10: c9          .
+; &1d11 referenced 1 time by &21e0
+.l1d11
+    equb &0d, &d0, &f9, &20, &66, &15, &20, &d4, &12, &20, &66, &1b   ; 1d11: 0d d0 f9... ...
+    equb &a9, &16, &20, &87, &28, &20, &9b, &0d, &a9, &33, &85, &19   ; 1d1d: a9 16 20... ..
+    equb &a9,   0, &85, &87, &85,   0, &a9, &ca, &a0,   0, &a2, &30   ; 1d29: a9 00 85... ...
+    equb &20, &f4, &ff, &a2, &fd, &a5,   6, &f0,   6, &a5,   9, &f0   ; 1d35: 20 f4 ff...  ..
+    equb   2, &a6, &84, &8e, &98, &0f, &a5, &7f, &d0,   4, &8a, &20   ; 1d41: 02 a6 84... ...
+    equb &13, &0e, &a2, &e4, &a0,   1, &b1, &24, &c9, &22, &d0,   2   ; 1d4d: 13 0e a2... ...
+    equb &a2, &e5, &e4, &87, &f0,   6, &86, &87, &8a, &20, &13, &0e   ; 1d59: a2 e5 e4... ...
     equs " d# "                                                       ; 1d65: 20 64 23...  d#
     equb &81, &1e                                                     ; 1d69: 81 1e       ..
     equs " d# "                                                       ; 1d6b: 20 64 23...  d#
@@ -970,13 +1075,43 @@ l139a = c1399+1
     equb &95, &20, &ee, &ff, &85, &31, &a9, &fd, &18, &69,   3, &88   ; 21ad: 95 20 ee... . .
     equb &10, &fa, &a8, &a2,   3, &b9, &ae,   7, &20, &ee, &ff, &c8   ; 21b9: 10 fa a8... ...
     equb &ca, &d0, &f6, &a2,   2, &a0, &1d, &20, &ac, &12, &a2,   7   ; 21c5: ca d0 f6... ...
-    equb &a4,   2, &84, &8a, &b9, &e1,   6, &c9, &ff, &f0, &21, &a8   ; 21d1: a4 02 84... ...
-    equb &b9, &e3, &2e, &8d, &11, &1d, &a0,   0, &0a, &90,   1, &88   ; 21dd: b9 e3 2e... ...
-    equb &8c, &10, &1d, &a0,   5, &b9, &10, &1d, &20, &ee, &ff, &88   ; 21e9: 8c 10 1d... ...
-    equb &10, &f7, &a4, &8a, &c8, &ca, &d0, &d6, &60, &1f, &21, &0e   ; 21f5: 10 f7 a4... ...
-    equb &ff, &1c, &1f, &14, &26, &10, &0c, &1a, &19,   4, &ec,   3   ; 2201: ff 1c 1f... ...
-    equb &a2,   1, &ff,   0,   0,   0, &20,   1, &19, &86, &8b, &84   ; 220d: a2 01 ff... ...
-    equb &8c, &a9,   1, &85, &95, &85, &97, &85                       ; 2219: 8c a9 01... ...
+    equb &a4,   2                                                     ; 21d1: a4 02       ..
+
+; &21d3 referenced 1 time by &21fb
+.c21d3
+    sty l008a                                                         ; 21d3: 84 8a       ..
+    lda l06e1,y                                                       ; 21d5: b9 e1 06    ...
+    cmp #&ff                                                          ; 21d8: c9 ff       ..
+    beq return_6                                                      ; 21da: f0 21       .!
+    tay                                                               ; 21dc: a8          .
+    lda l2ee3,y                                                       ; 21dd: b9 e3 2e    ...
+    sta l1d11                                                         ; 21e0: 8d 11 1d    ...
+    ldy #0                                                            ; 21e3: a0 00       ..
+    asl a                                                             ; 21e5: 0a          .
+    bcc c21e9                                                         ; 21e6: 90 01       ..
+    dey                                                               ; 21e8: 88          .              ; Y=&ff
+; &21e9 referenced 1 time by &21e6
+.c21e9
+    sty l1d10                                                         ; 21e9: 8c 10 1d    ...
+    ; print message
+    ldy #5                                                            ; 21ec: a0 05       ..
+; &21ee referenced 1 time by &21f5
+.loop_c21ee
+    lda l1d10,y                                                       ; 21ee: b9 10 1d    ...
+    jsr oswrch                                                        ; 21f1: 20 ee ff     ..            ; Write character
+    dey                                                               ; 21f4: 88          .
+    bpl loop_c21ee                                                    ; 21f5: 10 f7       ..
+    ldy l008a                                                         ; 21f7: a4 8a       ..
+    iny                                                               ; 21f9: c8          .
+    dex                                                               ; 21fa: ca          .
+    bne c21d3                                                         ; 21fb: d0 d6       ..
+; &21fd referenced 1 time by &21da
+.return_6
+    rts                                                               ; 21fd: 60          `
+
+    equb &1f, &21, &0e, &ff, &1c, &1f, &14, &26, &10, &0c, &1a, &19   ; 21fe: 1f 21 0e... .!.
+    equb   4, &ec,   3, &a2,   1, &ff,   0,   0,   0, &20,   1, &19   ; 220a: 04 ec 03... ...
+    equb &86, &8b, &84, &8c, &a9,   1, &85, &95, &85, &97, &85        ; 2216: 86 8b 84... ...
 ; &2221 referenced 1 time by &12b4
 .l2221
     equb &99, &85, &9b, &a0,   0, &b1, &8b, &c8, &c9, &ff, &d0,   1   ; 2221: 99 85 9b... ...
@@ -1179,12 +1314,12 @@ l139a = c1399+1
 .c28bd
     dex                                                               ; 28bd: ca          .
     cpx #&fe                                                          ; 28be: e0 fe       ..
-    beq return_6                                                      ; 28c0: f0 06       ..
+    beq return_7                                                      ; 28c0: f0 06       ..
     cpx #&f7                                                          ; 28c2: e0 f7       ..
-    beq return_6                                                      ; 28c4: f0 02       ..
+    beq return_7                                                      ; 28c4: f0 02       ..
     stx l0084                                                         ; 28c6: 86 84       ..
 ; &28c8 referenced 2 times by &28c0, &28c4
-.return_6
+.return_7
     rts                                                               ; 28c8: 60          `
 
 ; &28c9 referenced 1 time by &28b3
@@ -1205,7 +1340,7 @@ l139a = c1399+1
 .c28d9
     ldx l000f                                                         ; 28d9: a6 0f       ..
     cpx #&30 ; '0'                                                    ; 28db: e0 30       .0
-    beq return_7                                                      ; 28dd: f0 2f       ./
+    beq return_8                                                      ; 28dd: f0 2f       ./
     cmp #&72 ; 'r'                                                    ; 28df: c9 72       .r
     bne c28e8                                                         ; 28e1: d0 05       ..
     ldx #6                                                            ; 28e3: a2 06       ..
@@ -1224,34 +1359,34 @@ l139a = c1399+1
     bne c290f                                                         ; 28f3: d0 1a       ..
     lda l001e                                                         ; 28f5: a5 1e       ..
     cmp #5                                                            ; 28f7: c9 05       ..
-    beq return_7                                                      ; 28f9: f0 13       ..
+    beq return_8                                                      ; 28f9: f0 13       ..
     ldx #8                                                            ; 28fb: a2 08       ..
     jsr c245e                                                         ; 28fd: 20 5e 24     ^$
     lda l001e                                                         ; 2900: a5 1e       ..
     cmp #2                                                            ; 2902: c9 02       ..
-    bne return_7                                                      ; 2904: d0 08       ..
+    bne return_8                                                      ; 2904: d0 08       ..
     ldy l0008                                                         ; 2906: a4 08       ..
     cpy #3                                                            ; 2908: c0 03       ..
-    bcc return_7                                                      ; 290a: 90 02       ..
+    bcc return_8                                                      ; 290a: 90 02       ..
     dec l0008                                                         ; 290c: c6 08       ..
 ; &290e referenced 9 times by &28dd, &28f9, &2904, &290a, &2911, &292e, &293d, &294a, &2957
-.return_7
+.return_8
     rts                                                               ; 290e: 60          `
 
 ; &290f referenced 1 time by &28f3
 .c290f
     cpx #&31 ; '1'                                                    ; 290f: e0 31       .1
-    beq return_7                                                      ; 2911: f0 fb       ..
+    beq return_8                                                      ; 2911: f0 fb       ..
     cmp #&62 ; 'b'                                                    ; 2913: c9 62       .b
     bne c2925                                                         ; 2915: d0 0e       ..
     ldx #&0b                                                          ; 2917: a2 0b       ..
     jsr c245e                                                         ; 2919: 20 5e 24     ^$
     ldy l000b                                                         ; 291c: a4 0b       ..
     cpy #2                                                            ; 291e: c0 02       ..
-    bcc return_8                                                      ; 2920: 90 02       ..
+    bcc return_9                                                      ; 2920: 90 02       ..
     dec l000b                                                         ; 2922: c6 0b       ..
 ; &2924 referenced 1 time by &2920
-.return_8
+.return_9
     rts                                                               ; 2924: 60          `
 
 ; &2925 referenced 1 time by &2915
@@ -1263,7 +1398,7 @@ l139a = c1399+1
 ; &292c referenced 1 time by &2927
 .c292c
     cpx #&32 ; '2'                                                    ; 292c: e0 32       .2
-    beq return_7                                                      ; 292e: f0 de       ..
+    beq return_8                                                      ; 292e: f0 de       ..
     cmp #&2d ; '-'                                                    ; 2930: c9 2d       .-
     bne c293b                                                         ; 2932: d0 07       ..
     lda l0020                                                         ; 2934: a5 20       .
@@ -1274,7 +1409,7 @@ l139a = c1399+1
 ; &293b referenced 1 time by &2932
 .c293b
     cpx #&33 ; '3'                                                    ; 293b: e0 33       .3
-    beq return_7                                                      ; 293d: f0 cf       ..
+    beq return_8                                                      ; 293d: f0 cf       ..
     cmp #&69 ; 'i'                                                    ; 293f: c9 69       .i
     bne c2948                                                         ; 2941: d0 05       ..
     ldx #&0a                                                          ; 2943: a2 0a       ..
@@ -1283,7 +1418,7 @@ l139a = c1399+1
 ; &2948 referenced 1 time by &2941
 .c2948
     cpx #&34 ; '4'                                                    ; 2948: e0 34       .4
-    beq return_7                                                      ; 294a: f0 c2       ..
+    beq return_8                                                      ; 294a: f0 c2       ..
     cmp #&66 ; 'f'                                                    ; 294c: c9 66       .f
     bne c2955                                                         ; 294e: d0 05       ..
     ldx #7                                                            ; 2950: a2 07       ..
@@ -1292,7 +1427,7 @@ l139a = c1399+1
 ; &2955 referenced 1 time by &294e
 .c2955
     cmp #&64 ; 'd'                                                    ; 2955: c9 64       .d
-    bne return_7                                                      ; 2957: d0 b5       ..
+    bne return_8                                                      ; 2957: d0 b5       ..
     ldx #&0c                                                          ; 2959: a2 0c       ..
     jmp c245e                                                         ; 295b: 4c 5e 24    L^$
 
@@ -1450,7 +1585,10 @@ l139a = c1399+1
     equb &ff                                                          ; 2ebb: ff          .
     equs "HIGH SPEED RUN, PRESS X"                                    ; 2ebc: 48 49 47... HIG
     equb &ff                                                          ; 2ed3: ff          .
-    equs "COMMUNICATION CORD PULLED"                                  ; 2ed4: 43 4f 4d... COM
+    equs "COMMUNICATION C"                                            ; 2ed4: 43 4f 4d... COM
+; &2ee3 referenced 1 time by &21dd
+.l2ee3
+    equs "ORD PULLED"                                                 ; 2ee3: 4f 52 44... ORD
     equb &ff                                                          ; 2eed: ff          .
     equs "ALL CLEAR"                                                  ; 2eee: 41 4c 4c... ALL
     equb &ff                                                          ; 2ef7: ff          .
@@ -3607,24 +3745,108 @@ l139a = c1399+1
     equb &ff, &72, &32, &13                                           ; 6e68: ff 72 32... .r2
     equs "Ccs"                                                        ; 6e6c: 43 63 73    Ccs
     equb &ff, &ff,   1, &cd, &cf, &cf, &cf, &87, &ff, &fc, &fc, &fc   ; 6e6f: ff ff 01... ...
-    equb &fc, &fc, &fc, &fc, &fc, &a2, &0c, &a9, &8c, &20, &f4, &ff   ; 6e7b: fc fc fc... ...
-    equb &a9, &e1, &a2,   0, &a0,   0, &20, &f4, &ff, &a9, &e2, &a2   ; 6e87: a9 e1 a2... ...
-    equb   0, &a0,   0, &20, &f4, &ff, &a9, &e3, &a2,   0, &a0,   0   ; 6e93: 00 a0 00... ...
-    equb &20, &f4, &ff, &a9, &e4, &a2,   0, &a0,   0, &20, &f4, &ff   ; 6e9f: 20 f4 ff...  ..
-    equb &a9, &0e, &85, &89, &a9,   9, &85, &8b, &a0,   0, &84, &88   ; 6eab: a9 0e 85... ...
-    equb &84, &8a, &a2, &61, &b1, &88, &91, &8a, &c8, &d0, &f9, &e6   ; 6eb7: 84 8a a2... ...
-    equb &89, &e6, &8b, &ca, &d0, &f2, &a9, &e1, &85, &88, &a9, &70   ; 6ec3: 89 e6 8b... ...
-    equb &85, &89, &a2,   4, &86, &8b, &b1, &88, &91, &8a, &c8, &d0   ; 6ecf: 85 89 a2... ...
-    equb &f9, &e6, &89, &e6, &8b, &ca, &d0, &f2, &a9,   2, &a2,   0   ; 6edb: f9 e6 89... ...
-    equb &20, &f4, &ff, &a9,   3, &a2,   0, &a0,   0, &20, &f4, &ff   ; 6ee7: 20 f4 ff...  ..
-    equb &a9,   4, &a2,   1, &a0,   0, &20, &f4, &ff, &a9, &0b, &a2   ; 6ef3: a9 04 a2... ...
-    equb   0, &a0,   0, &20, &f4, &ff, &a9,   9, &85, &88, &a9, &0d   ; 6eff: 00 a0 00... ...
-    equb &a6, &88, &a0,   0, &20, &f4, &ff, &c6, &88, &10, &f3, &a9   ; 6f0b: a6 88 a0... ...
-    equb &10, &a2,   0, &20, &f4, &ff, &a9, &14, &a2,   0, &20, &f4   ; 6f17: 10 a2 00... ...
-    equb &ff, &a9, &d5, &a0,   0, &a2, &96, &20, &f4, &ff, &a9, &d6   ; 6f23: ff a9 d5... ...
-    equb &a0,   0, &a2,   1, &20, &f4, &ff, &a9, &e5, &a2,   1, &20   ; 6f2f: a0 00 a2... ...
-    equb &f4, &ff, &a2, &44, &a0, &70, &a9,   8, &20, &f1, &ff        ; 6f3b: f4 ff a2... ...
+    equb &fc, &fc, &fc, &fc, &fc                                      ; 6e7b: fc fc fc... ...
 
+.start
+    ldx #12                                                           ; 6e80: a2 0c       ..
+    lda #osbyte_tape                                                  ; 6e82: a9 8c       ..
+    jsr osbyte                                                        ; 6e84: 20 f4 ff     ..            ; Select TAPE filing system at 1200 baud (X=12)
+    lda #osbyte_read_write_function_key_status                        ; 6e87: a9 e1       ..
+    ldx #0                                                            ; 6e89: a2 00       ..
+    ldy #0                                                            ; 6e8b: a0 00       ..
+    jsr osbyte                                                        ; 6e8d: 20 f4 ff     ..            ; Write function key status, value X=0
+    lda #osbyte_read_write_shift_function_key_status                  ; 6e90: a9 e2       ..
+    ldx #0                                                            ; 6e92: a2 00       ..
+    ldy #0                                                            ; 6e94: a0 00       ..
+    jsr osbyte                                                        ; 6e96: 20 f4 ff     ..            ; Write SHIFT+function keys status, value X=0
+    lda #osbyte_read_write_ctrl_function_key_status                   ; 6e99: a9 e3       ..
+    ldx #0                                                            ; 6e9b: a2 00       ..
+    ldy #0                                                            ; 6e9d: a0 00       ..
+    jsr osbyte                                                        ; 6e9f: 20 f4 ff     ..            ; Write CTRL+function keys status, value X=0
+    lda #osbyte_read_write_ctrl_shift_function_key_status             ; 6ea2: a9 e4       ..
+    ldx #0                                                            ; 6ea4: a2 00       ..
+    ldy #0                                                            ; 6ea6: a0 00       ..
+    jsr osbyte                                                        ; 6ea8: 20 f4 ff     ..            ; Write CTRL+SHIFT+function keys status, value X=0
+    lda #&0e                                                          ; 6eab: a9 0e       ..
+    sta l0089                                                         ; 6ead: 85 89       ..
+    lda #9                                                            ; 6eaf: a9 09       ..
+    sta l008b                                                         ; 6eb1: 85 8b       ..
+    ldy #0                                                            ; 6eb3: a0 00       ..
+    sty l0088                                                         ; 6eb5: 84 88       ..
+    sty l008a                                                         ; 6eb7: 84 8a       ..
+    ldx #&61 ; 'a'                                                    ; 6eb9: a2 61       .a
+; &6ebb referenced 2 times by &6ec0, &6ec7
+.c6ebb
+    lda (l0088),y                                                     ; 6ebb: b1 88       ..
+    sta (l008a),y                                                     ; 6ebd: 91 8a       ..
+    iny                                                               ; 6ebf: c8          .
+    bne c6ebb                                                         ; 6ec0: d0 f9       ..
+    inc l0089                                                         ; 6ec2: e6 89       ..
+    inc l008b                                                         ; 6ec4: e6 8b       ..
+    dex                                                               ; 6ec6: ca          .
+    bne c6ebb                                                         ; 6ec7: d0 f2       ..
+    lda #&e1                                                          ; 6ec9: a9 e1       ..
+    sta l0088                                                         ; 6ecb: 85 88       ..
+    lda #&70 ; 'p'                                                    ; 6ecd: a9 70       .p
+    sta l0089                                                         ; 6ecf: 85 89       ..
+    ldx #4                                                            ; 6ed1: a2 04       ..
+    stx l008b                                                         ; 6ed3: 86 8b       ..
+; &6ed5 referenced 2 times by &6eda, &6ee1
+.c6ed5
+    lda (l0088),y                                                     ; 6ed5: b1 88       ..
+    sta (l008a),y                                                     ; 6ed7: 91 8a       ..
+    iny                                                               ; 6ed9: c8          .
+    bne c6ed5                                                         ; 6eda: d0 f9       ..
+    inc l0089                                                         ; 6edc: e6 89       ..
+    inc l008b                                                         ; 6ede: e6 8b       ..
+    dex                                                               ; 6ee0: ca          .
+    bne c6ed5                                                         ; 6ee1: d0 f2       ..
+    lda #osbyte_select_input_stream                                   ; 6ee3: a9 02       ..
+    ldx #0                                                            ; 6ee5: a2 00       ..
+    jsr osbyte                                                        ; 6ee7: 20 f4 ff     ..            ; Select keyboard as input stream with RS232 disabled (X=0)
+    lda #osbyte_select_output_stream                                  ; 6eea: a9 03       ..
+    ldx #%00000000                                                    ; 6eec: a2 00       ..
+    ldy #0                                                            ; 6eee: a0 00       ..
+    jsr osbyte                                                        ; 6ef0: 20 f4 ff     ..            ; Select output stream based on X: disable RS232 output; enable VDU driver; enable printer output; disable printer despite CTRL-B/C state; enable SPOOLed output; enable printer output even without VDU 1 first
+    lda #osbyte_set_cursor_editing                                    ; 6ef3: a9 04       ..
+    ldx #1                                                            ; 6ef5: a2 01       ..
+    ldy #0                                                            ; 6ef7: a0 00       ..
+    jsr osbyte                                                        ; 6ef9: 20 f4 ff     ..            ; Disable cursor editing (edit keys give ASCII 135-139) (X=1)
+    lda #osbyte_set_keyboard_repeat_delay                             ; 6efc: a9 0b       ..
+    ldx #0                                                            ; 6efe: a2 00       ..
+    ldy #0                                                            ; 6f00: a0 00       ..
+    jsr osbyte                                                        ; 6f02: 20 f4 ff     ..            ; Disable keyboard auto-repeat (X=0)
+    lda #9                                                            ; 6f05: a9 09       ..
+    sta l0088                                                         ; 6f07: 85 88       ..
+; &6f09 referenced 1 time by &6f14
+.loop_c6f09
+    lda #osbyte_disable_event                                         ; 6f09: a9 0d       ..
+    ldx l0088                                                         ; 6f0b: a6 88       ..
+    ldy #0                                                            ; 6f0d: a0 00       ..
+    jsr osbyte                                                        ; 6f0f: 20 f4 ff     ..            ; Disable event X
+    dec l0088                                                         ; 6f12: c6 88       ..
+    bpl loop_c6f09                                                    ; 6f14: 10 f3       ..
+    lda #osbyte_select_adc_channels                                   ; 6f16: a9 10       ..
+    ldx #0                                                            ; 6f18: a2 00       ..
+    jsr osbyte                                                        ; 6f1a: 20 f4 ff     ..            ; Disable ADC channel sampling (X=0)
+    lda #osbyte_explode_chars                                         ; 6f1d: a9 14       ..
+    ldx #0                                                            ; 6f1f: a2 00       ..
+    jsr osbyte                                                        ; 6f21: 20 f4 ff     ..            ; Implode character definition RAM, can redefine characters 128-159 (X=0)
+    lda #osbyte_read_write_bell_frequency                             ; 6f24: a9 d5       ..
+    ldy #0                                                            ; 6f26: a0 00       ..
+    ldx #&96                                                          ; 6f28: a2 96       ..
+    jsr osbyte                                                        ; 6f2a: 20 f4 ff     ..            ; Write CTRL G frequency, value X=150
+    lda #osbyte_read_write_bell_duration                              ; 6f2d: a9 d6       ..
+    ldy #0                                                            ; 6f2f: a0 00       ..
+    ldx #1                                                            ; 6f31: a2 01       ..
+    jsr osbyte                                                        ; 6f33: 20 f4 ff     ..            ; Write CTRL G duration, value X=1
+    lda #osbyte_read_write_escape_status                              ; 6f36: a9 e5       ..
+    ldx #1                                                            ; 6f38: a2 01       ..
+    jsr osbyte                                                        ; 6f3a: 20 f4 ff     ..            ; Set ESCAPE key to produce ASCII code None
+    ldx #<l7044                                                       ; 6f3d: a2 44       .D
+    ldy #>l7044                                                       ; 6f3f: a0 70       .p
+    lda #osword_envelope                                              ; 6f41: a9 08       ..
+    jsr osword                                                        ; 6f43: 20 f1 ff     ..            ; ENVELOPE command
     ; Copy 128 bytes of memory from l6fc4 to l0300
     ldx #&7f                                                          ; 6f46: a2 7f       ..
 ; &6f48 referenced 1 time by &6f4f
@@ -3643,32 +3865,37 @@ l139a = c1399+1
     sta l0882,x                                                       ; 6f5a: 9d 82 08    ...
     dex                                                               ; 6f5d: ca          .
     bpl loop_c6f57                                                    ; 6f5e: 10 f7       ..
-    lda l0204                                                         ; 6f60: ad 04 02    ...
+    lda irq1v                                                         ; 6f60: ad 04 02    ...
     sta l0fd6                                                         ; 6f63: 8d d6 0f    ...
-    lda l0205                                                         ; 6f66: ad 05 02    ...
+    lda irq1v+1                                                       ; 6f66: ad 05 02    ...
     sta l0fd7                                                         ; 6f69: 8d d7 0f    ...
-    lda l0220                                                         ; 6f6c: ad 20 02    . .
+    lda evntv                                                         ; 6f6c: ad 20 02    . .
     sta l0fa3                                                         ; 6f6f: 8d a3 0f    ...
-    lda l0221                                                         ; 6f72: ad 21 02    .!.
+    lda evntv+1                                                       ; 6f72: ad 21 02    .!.
     sta c0fa4                                                         ; 6f75: 8d a4 0f    ...
     sei                                                               ; 6f78: 78          x
-    lda #&42 ; 'B'                                                    ; 6f79: a9 42       .B
-    sta l0220                                                         ; 6f7b: 8d 20 02    . .
-    lda #&0f                                                          ; 6f7e: a9 0f       ..
-    sta l0221                                                         ; 6f80: 8d 21 02    .!.
-    lda #&b1                                                          ; 6f83: a9 b1       ..
-    sta l0204                                                         ; 6f85: 8d 04 02    ...
-    lda #&0f                                                          ; 6f88: a9 0f       ..
-    sta l0205                                                         ; 6f8a: 8d 05 02    ...
+
+    ; Set event vector to 'handle_evntv'
+    lda #<handle_evntv                                                ; 6f79: a9 42       .B
+    sta evntv                                                         ; 6f7b: 8d 20 02    . .
+    lda #>handle_evntv                                                ; 6f7e: a9 0f       ..
+    sta evntv+1                                                       ; 6f80: 8d 21 02    .!.
+
+    ; Set IRQ 1 vector to 'handle_irq1v'
+    lda #<handle_irq1v                                                ; 6f83: a9 b1       ..
+    sta irq1v                                                         ; 6f85: 8d 04 02    ...
+    lda #>handle_irq1v                                                ; 6f88: a9 0f       ..
+    sta irq1v+1                                                       ; 6f8a: 8d 05 02    ...
+
     jsr l0efb                                                         ; 6f8d: 20 fb 0e     ..
     cli                                                               ; 6f90: 58          X
-    lda #&0e                                                          ; 6f91: a9 0e       ..
-    ldx #4                                                            ; 6f93: a2 04       ..
-    jsr lfff4                                                         ; 6f95: 20 f4 ff     ..
-    lda lfe6b                                                         ; 6f98: ad 6b fe    .k.
+    lda #osbyte_enable_event                                          ; 6f91: a9 0e       ..
+    ldx #event_start_of_vertical_sync                                 ; 6f93: a2 04       ..
+    jsr osbyte                                                        ; 6f95: 20 f4 ff     ..            ; Enable 'Start of vertical sync' event (X=4)
+    lda user_via_acr                                                  ; 6f98: ad 6b fe    .k.
     and #&3f ; '?'                                                    ; 6f9b: 29 3f       )?
     eor #&40 ; '@'                                                    ; 6f9d: 49 40       I@
-    sta lfe6b                                                         ; 6f9f: 8d 6b fe    .k.
+    sta user_via_acr                                                  ; 6f9f: 8d 6b fe    .k.
     ldx #&b7                                                          ; 6fa2: a2 b7       ..
     ldy #&6f ; 'o'                                                    ; 6fa4: a0 6f       .o
     jsr sub_c12ac                                                     ; 6fa6: 20 ac 12     ..
@@ -3695,8 +3922,9 @@ l139a = c1399+1
     equb   0,   0,   0, &af, &c7, &67,   1,   7, &80, 1, &13, 0, &7f  ; 701e: 00 00 00... ...
     equb &0f, &0c, &0c, &0c, &0c, &0c, &0c, &0c,   0, 3, &13          ; 702b: 0f 0c 0c... ...
     equs "CS!1aq"                                                     ; 7036: 43 53 21... CS!
-    equb &80, &90, &c0, &d0, &a4, &b4, &e4, &f4, 1, &81, 1, &fb, 1    ; 703c: 80 90 c0... ...
-    equb &1e,   6, &1e, &64,   0,   0, &f0, &64, 0                    ; 7049: 1e 06 1e... ...
+    equb &80, &90, &c0, &d0, &a4, &b4, &e4, &f4                       ; 703c: 80 90 c0... ...
+.l7044
+    equb 1, &81, 1, &fb, 1, &1e, 6, &1e, &64, 0, 0, &f0, &64, 0       ; 7044: 01 81 01... ...            ; Envelope Number (1-16) and rest of definition (14 bytes)
 ; &7052 referenced 1 time by &6f57
 .l7052
     equb &ff, &ff, &80                                                ; 7052: ff ff 80    ...
@@ -3866,6 +4094,14 @@ l139a = c1399+1
     equb 0, 0, 0, 0                                                   ; 75fc: 00 00 00... ...
 .pydis_end
 
+    assert &42 == <handle_evntv
+    assert &b1 == <handle_irq1v
+    assert &49 == <l0d49
+    assert &44 == <l7044
+    assert &0f == >handle_evntv
+    assert &0f == >handle_irq1v
+    assert &0d == >l0d49
+    assert &70 == >l7044
     assert &0880 == l0881 - 1
     assert &1049 == l104a - 1
     assert &104c == l104d - 1
@@ -3874,175 +4110,211 @@ l139a = c1399+1
 save pydis_start, pydis_end
 
 ; Label references by decreasing frequency:
-;     l001e:        9
-;     l0088:        9
-;     return_7:     9
-;     c245e:        7
-;     l0fa5:        6
-;     c149c:        5
-;     l0008:        5
-;     l0089:        4
-;     c0fbc:        3
-;     c1399:        3
-;     c14ce:        3
-;     c2887:        3
-;     l007e:        3
-;     l007f:        3
-;     l008a:        3
-;     l104a:        3
-;     l104b:        3
-;     l104d:        3
-;     l104e:        3
-;     lfe21:        3
-;     return_3:     3
-;     c0e9b:        2
-;     c1487:        2
-;     c28b1:        2
-;     l0001:        2
-;     l000b:        2
-;     l001a:        2
-;     l0020:        2
-;     l0048:        2
-;     l0061:        2
-;     l0066:        2
-;     l0067:        2
-;     l007d:        2
-;     l0084:        2
-;     l008b:        2
-;     l00fc:        2
-;     l0204:        2
-;     l0205:        2
-;     l0220:        2
-;     l0221:        2
-;     l7800:        2
-;     lfe20:        2
-;     lfe6b:        2
-;     lfe6d:        2
-;     lfff4:        2
-;     return_6:     2
-;     c0e92:        1
-;     c0fa2:        1
-;     c0fa4:        1
-;     c0fb1:        1
-;     c1222:        1
-;     c12bc:        1
-;     c12e4:        1
-;     c12ec:        1
-;     c12f5:        1
-;     c12ff:        1
-;     c139b:        1
-;     c139f:        1
-;     c146d:        1
-;     c148f:        1
-;     c1499:        1
-;     c14c5:        1
-;     c14d8:        1
-;     c14f6:        1
-;     c1514:        1
-;     c1547:        1
-;     c1865:        1
-;     c1867:        1
-;     c1872:        1
-;     c1884:        1
-;     c1887:        1
-;     c288c:        1
-;     c2898:        1
-;     c289b:        1
-;     c28a4:        1
-;     c28bd:        1
-;     c28c9:        1
-;     c28d1:        1
-;     c28d9:        1
-;     c28e8:        1
-;     c28f1:        1
-;     c290f:        1
-;     c2925:        1
-;     c292c:        1
-;     c293b:        1
-;     c2948:        1
-;     c2955:        1
-;     c70bb:        1
-;     l0000:        1
-;     l0005:        1
-;     l000f:        1
-;     l0015:        1
-;     l0018:        1
-;     l001c:        1
-;     l001f:        1
-;     l003a:        1
-;     l003c:        1
-;     l003d:        1
-;     l003f:        1
-;     l007b:        1
-;     l0080:        1
-;     l0081:        1
-;     l0082:        1
-;     l0083:        1
-;     l00e0:        1
-;     l0248:        1
-;     l0300:        1
-;     l036f:        1
-;     l07d0:        1
-;     l0882:        1
-;     l0900:        1
-;     l0947:        1
-;     l0a00:        1
-;     l0a66:        1
-;     l0bcf:        1
-;     l0efb:        1
-;     l0fa3:        1
-;     l0fd6:        1
-;     l0fd7:        1
-;     l139a:        1
-;     l2221:        1
-;     l2e92:        1
-;     l6fc4:        1
-;     l7052:        1
-;     l7090:        1
-;     l74c0:        1
-;     l75c0:        1
-;     lf020:        1
-;     lfe44:        1
-;     lfe45:        1
-;     lfe47:        1
-;     lfe4d:        1
-;     lfe64:        1
-;     lfe65:        1
-;     lfe66:        1
-;     lfe67:        1
-;     lfe6e:        1
-;     lffab:        1
-;     lffee:        1
-;     lfff7:        1
-;     loop_c1207:   1
-;     loop_c1227:   1
-;     loop_c1230:   1
-;     loop_c123b:   1
-;     loop_c12b9:   1
-;     loop_c14e9:   1
-;     loop_c1500:   1
-;     loop_c150b:   1
-;     loop_c1549:   1
-;     loop_c187c:   1
-;     loop_c6f48:   1
-;     loop_c6f57:   1
-;     loop_c6fab:   1
-;     loop_c70bd:   1
-;     return_1:     1
-;     return_2:     1
-;     return_4:     1
-;     return_5:     1
-;     return_8:     1
-;     sub_c0e19:    1
-;     sub_c0ea5:    1
-;     sub_c12ac:    1
+;     osbyte:             17
+;     l0088:              16
+;     l001e:              10
+;     return_8:            9
+;     l0089:               8
+;     l008a:               8
+;     c245e:               7
+;     l0008:               6
+;     l008b:               6
+;     l0fa5:               6
+;     c149c:               5
+;     c0fa0:               3
+;     c0fbc:               3
+;     c1399:               3
+;     c14ce:               3
+;     c2887:               3
+;     l003a:               3
+;     l007e:               3
+;     l007f:               3
+;     l104a:               3
+;     l104b:               3
+;     l104d:               3
+;     l104e:               3
+;     oswrch:              3
+;     return_3:            3
+;     video_ula_palette:   3
+;     c0e9b:               2
+;     c0f66:               2
+;     c0f9e:               2
+;     c1487:               2
+;     c28b1:               2
+;     c6ebb:               2
+;     c6ed5:               2
+;     evntv:               2
+;     irq1v:               2
+;     l0001:               2
+;     l0005:               2
+;     l000b:               2
+;     l001a:               2
+;     l001b:               2
+;     l0020:               2
+;     l003c:               2
+;     l003d:               2
+;     l0047:               2
+;     l0048:               2
+;     l0061:               2
+;     l0066:               2
+;     l0067:               2
+;     l007d:               2
+;     l0084:               2
+;     l00fc:               2
+;     l0941:               2
+;     l1d10:               2
+;     l7800:               2
+;     return_7:            2
+;     user_via_acr:        2
+;     user_via_ifr:        2
+;     video_ula_control:   2
+;     c0e92:               1
+;     c0f1d:               1
+;     c0f55:               1
+;     c0f60:               1
+;     c0f7e:               1
+;     c0f90:               1
+;     c0fa2:               1
+;     c0fa4:               1
+;     c1222:               1
+;     c12bc:               1
+;     c12e4:               1
+;     c12ec:               1
+;     c12f5:               1
+;     c12ff:               1
+;     c139b:               1
+;     c139f:               1
+;     c146d:               1
+;     c148f:               1
+;     c1499:               1
+;     c14c5:               1
+;     c14d8:               1
+;     c14f6:               1
+;     c1514:               1
+;     c1547:               1
+;     c1865:               1
+;     c1867:               1
+;     c1872:               1
+;     c1884:               1
+;     c1887:               1
+;     c21d3:               1
+;     c21e9:               1
+;     c288c:               1
+;     c2898:               1
+;     c289b:               1
+;     c28a4:               1
+;     c28bd:               1
+;     c28c9:               1
+;     c28d1:               1
+;     c28d9:               1
+;     c28e8:               1
+;     c28f1:               1
+;     c290f:               1
+;     c2925:               1
+;     c292c:               1
+;     c293b:               1
+;     c2948:               1
+;     c2955:               1
+;     c70bb:               1
+;     handle_irq1v:        1
+;     l0000:               1
+;     l0004:               1
+;     l000e:               1
+;     l000f:               1
+;     l0015:               1
+;     l0018:               1
+;     l001c:               1
+;     l001f:               1
+;     l0024:               1
+;     l003f:               1
+;     l0040:               1
+;     l007b:               1
+;     l0080:               1
+;     l0081:               1
+;     l0082:               1
+;     l0083:               1
+;     l00e0:               1
+;     l0248:               1
+;     l0300:               1
+;     l036f:               1
+;     l06e1:               1
+;     l07d0:               1
+;     l0882:               1
+;     l0900:               1
+;     l0902:               1
+;     l0947:               1
+;     l094a:               1
+;     l0967:               1
+;     l0a00:               1
+;     l0a66:               1
+;     l0bcf:               1
+;     l0efb:               1
+;     l0fa3:               1
+;     l0fd6:               1
+;     l0fd7:               1
+;     l139a:               1
+;     l1d11:               1
+;     l2221:               1
+;     l2e92:               1
+;     l2ee3:               1
+;     l6fc4:               1
+;     l7052:               1
+;     l7090:               1
+;     l74c0:               1
+;     l75c0:               1
+;     lf020:               1
+;     lffab:               1
+;     loop_c1207:          1
+;     loop_c1227:          1
+;     loop_c1230:          1
+;     loop_c123b:          1
+;     loop_c12b9:          1
+;     loop_c14e9:          1
+;     loop_c1500:          1
+;     loop_c150b:          1
+;     loop_c1549:          1
+;     loop_c182b:          1
+;     loop_c187c:          1
+;     loop_c21ee:          1
+;     loop_c6f09:          1
+;     loop_c6f48:          1
+;     loop_c6f57:          1
+;     loop_c6fab:          1
+;     loop_c70bd:          1
+;     oscli:               1
+;     osword:              1
+;     return_1:            1
+;     return_2:            1
+;     return_4:            1
+;     return_5:            1
+;     return_6:            1
+;     return_9:            1
+;     sub_c0e19:           1
+;     sub_c0ea5:           1
+;     sub_c12ac:           1
+;     system_via_ifr:      1
+;     system_via_t1c_h:    1
+;     system_via_t1c_l:    1
+;     system_via_t1l_h:    1
+;     user_via_ier:        1
+;     user_via_t1c_h:      1
+;     user_via_t1c_l:      1
+;     user_via_t1l_h:      1
+;     user_via_t1l_l:      1
 
 ; Automatically generated labels:
 ;     c0e92
 ;     c0e9b
+;     c0f1d
+;     c0f55
+;     c0f60
+;     c0f66
+;     c0f7e
+;     c0f90
+;     c0f9e
+;     c0fa0
 ;     c0fa2
 ;     c0fa4
-;     c0fb1
 ;     c0fbc
 ;     c1222
 ;     c12bc
@@ -4069,6 +4341,8 @@ save pydis_start, pydis_end
 ;     c1872
 ;     c1884
 ;     c1887
+;     c21d3
+;     c21e9
 ;     c245e
 ;     c2887
 ;     c288c
@@ -4088,24 +4362,32 @@ save pydis_start, pydis_end
 ;     c293b
 ;     c2948
 ;     c2955
+;     c6ebb
+;     c6ed5
 ;     c70bb
 ;     l0000
 ;     l0001
+;     l0004
 ;     l0005
 ;     l0008
 ;     l000b
+;     l000e
 ;     l000f
 ;     l0015
 ;     l0018
 ;     l001a
+;     l001b
 ;     l001c
 ;     l001e
 ;     l001f
 ;     l0020
+;     l0024
 ;     l003a
 ;     l003c
 ;     l003d
 ;     l003f
+;     l0040
+;     l0047
 ;     l0048
 ;     l0061
 ;     l0066
@@ -4125,21 +4407,23 @@ save pydis_start, pydis_end
 ;     l008b
 ;     l00e0
 ;     l00fc
-;     l0204
-;     l0205
-;     l0220
-;     l0221
 ;     l0248
 ;     l0300
 ;     l036f
+;     l06e1
 ;     l07d0
 ;     l0881
 ;     l0882
 ;     l0900
+;     l0902
+;     l0941
 ;     l0947
+;     l094a
+;     l0967
 ;     l0a00
 ;     l0a66
 ;     l0bcf
+;     l0d49
 ;     l0efb
 ;     l0fa3
 ;     l0fa5
@@ -4150,9 +4434,13 @@ save pydis_start, pydis_end
 ;     l104d
 ;     l104e
 ;     l139a
+;     l1d10
+;     l1d11
 ;     l2221
 ;     l2e92
+;     l2ee3
 ;     l6fc4
+;     l7044
 ;     l7052
 ;     l7090
 ;     l74c0
@@ -4160,23 +4448,7 @@ save pydis_start, pydis_end
 ;     l76c1
 ;     l7800
 ;     lf020
-;     lfe20
-;     lfe21
-;     lfe44
-;     lfe45
-;     lfe47
-;     lfe4d
-;     lfe64
-;     lfe65
-;     lfe66
-;     lfe67
-;     lfe6b
-;     lfe6d
-;     lfe6e
 ;     lffab
-;     lffee
-;     lfff4
-;     lfff7
 ;     loop_c1207
 ;     loop_c1227
 ;     loop_c1230
@@ -4186,12 +4458,16 @@ save pydis_start, pydis_end
 ;     loop_c1500
 ;     loop_c150b
 ;     loop_c1549
+;     loop_c182b
 ;     loop_c187c
+;     loop_c21ee
+;     loop_c6f09
 ;     loop_c6f48
 ;     loop_c6f57
 ;     loop_c6fab
 ;     loop_c70bd
 ;     return_1
+;     return_10
 ;     return_2
 ;     return_3
 ;     return_4
@@ -4206,11 +4482,12 @@ save pydis_start, pydis_end
 
 ; Stats:
 ;     Total size (Code + Data) = 26624 bytes
-;     Code                     = 963 bytes (4%)
-;     Data                     = 25661 bytes (96%)
+;     Code                     = 1312 bytes (5%)
+;     Data                     = 25312 bytes (95%)
 ;
-;     Number of instructions   = 471
-;     Number of data bytes     = 21044 bytes
+;     Number of instructions   = 638
+;     Number of data bytes     = 20698 bytes
 ;     Number of data words     = 0 bytes
-;     Number of string bytes   = 4617 bytes
+;     Number of string bytes   = 4614 bytes
 ;     Number of strings        = 797
+
