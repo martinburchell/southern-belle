@@ -82,6 +82,7 @@ l0bcf               = &0bcf
 l0d49               = &0d49
 l76c1               = &76c1
 l7800               = &7800
+l7829               = &7829
 lf020               = &f020
 video_ula_control   = &fe20
 video_ula_palette   = &fe21
@@ -763,23 +764,25 @@ l139a = c1399+1
     equb &77, &10, &c6, &9c, &d0, &d6, &c6, &9d, &10, &d2, &a5, &98   ; 171e: 77 10 c6... w..
     equb &85, &94, &a5, &99, &85, &95, &a5, &9a, &85, &96, &a5, &9b   ; 172a: 85 94 a5... ...
     equb &85, &97, &60, &a5, &9e, &38, &e5, &9c, &85, &9e, &a5, &9f   ; 1736: 85 97 60... ..`
-    equb &e5, &9d, &85, &9f, &60, &e6, &94, &d0,   2, &e6, &95, &60   ; 1742: e5 9d 85... ...
-    equb &a6, &94, &d0,   2, &c6, &95, &c6, &94, &60, &e6, &96, &d0   ; 174e: a6 94 d0... ...
-    equb   2, &e6, &97, &60, &a6, &96, &d0,   2, &c6, &97, &c6, &96   ; 175a: 02 e6 97... ...
-    equb &60, &a0,   0, &a5, &9c, &38, &e5, &9e, &a5, &9d, &e5, &9f   ; 1766: 60 a0 00... `..
-    equb &b0, &12, &a6, &9c, &a4, &9e, &86, &9e, &84, &9c, &a6, &9d   ; 1772: b0 12 a6... ...
-    equb &a4, &9f, &86, &9f, &84, &9d, &a0,   1, &a2,   8,   6, &9e   ; 177e: a4 9f 86... ...
-    equb &26, &9f, &90,   6, &20, &39, &12, &38, &b0, &12, &20, &39   ; 178a: 26 9f 90... &..
-    equb &12, &b0, &0d, &a5, &9e, &65, &9c, &85, &9e, &a5, &9f, &65   ; 1796: 12 b0 0d... ...
-    equb &9d, &85, &9f, &18, &26, &a0, &ca, &d0, &dd, &60, &86, &88   ; 17a2: 9d 85 9f... ...
-    equb &84, &89, &a0,   0, &b1, &88, &c9, &ff, &f0, &ae, &20, &ee   ; 17ae: 84 89 a0... ...
-    equb &ff, &c8, &d0, &f4, &e6, &89, &d0, &f0, &b1, &88, &c9, &ff   ; 17ba: ff c8 d0... ...
-    equb &f0, &9e, &c9, &5b, &90,   2, &e9, &20, &20, &ee, &ff, &c8   ; 17c6: f0 9e c9... ...
-    equb &d0, &ee, &a5,   5, &20, &f9, &12, &20, &89, &28, &20, &cb   ; 17d2: d0 ee a5... ...
-    equb &10, &20, &2c, &10, &e6, &82, &4c, &f2, &0e, &a5,   4, &c9   ; 17de: 10 20 2c... . ,
-    equb &2e, &90, &46, &a0,   0, &b1, &24, &c9, &fe, &b0, &3e, &c5   ; 17ea: 2e 90 46... ..F
-    equb   5, &f0, &3a, &85,   5, &48, &a2, &13, &a0, &13, &20, &ac   ; 17f6: 05 f0 3a... ..:
-    equb &12                                                          ; 1802: 12          .
+    equb &e5, &9d, &85, &9f, &60, &e6, &94, &d0                       ; 1742: e5 9d 85... ...
+; &174a referenced 1 time by &70b6
+.l174a
+    equb   2, &e6, &95, &60, &a6, &94, &d0,   2, &c6, &95, &c6, &94   ; 174a: 02 e6 95... ...
+    equb &60, &e6, &96, &d0,   2, &e6, &97, &60, &a6, &96, &d0,   2   ; 1756: 60 e6 96... `..
+    equb &c6, &97, &c6, &96, &60, &a0,   0, &a5, &9c, &38, &e5, &9e   ; 1762: c6 97 c6... ...
+    equb &a5, &9d, &e5, &9f, &b0, &12, &a6, &9c, &a4, &9e, &86, &9e   ; 176e: a5 9d e5... ...
+    equb &84, &9c, &a6, &9d, &a4, &9f, &86, &9f, &84, &9d, &a0,   1   ; 177a: 84 9c a6... ...
+    equb &a2,   8,   6, &9e, &26, &9f, &90,   6, &20, &39, &12, &38   ; 1786: a2 08 06... ...
+    equb &b0, &12, &20, &39, &12, &b0, &0d, &a5, &9e, &65, &9c, &85   ; 1792: b0 12 20... ..
+    equb &9e, &a5, &9f, &65, &9d, &85, &9f, &18, &26, &a0, &ca, &d0   ; 179e: 9e a5 9f... ...
+    equb &dd, &60, &86, &88, &84, &89, &a0,   0, &b1, &88, &c9, &ff   ; 17aa: dd 60 86... .`.
+    equb &f0, &ae, &20, &ee, &ff, &c8, &d0, &f4, &e6, &89, &d0, &f0   ; 17b6: f0 ae 20... ..
+    equb &b1, &88, &c9, &ff, &f0, &9e, &c9, &5b, &90,   2, &e9, &20   ; 17c2: b1 88 c9... ...
+    equb &20, &ee, &ff, &c8, &d0, &ee, &a5,   5, &20, &f9, &12, &20   ; 17ce: 20 ee ff...  ..
+    equb &89, &28, &20, &cb, &10, &20, &2c, &10, &e6, &82, &4c, &f2   ; 17da: 89 28 20... .(
+    equb &0e, &a5,   4, &c9, &2e, &90, &46, &a0,   0, &b1, &24, &c9   ; 17e6: 0e a5 04... ...
+    equb &fe, &b0, &3e, &c5,   5, &f0, &3a, &85,   5, &48, &a2, &13   ; 17f2: fe b0 3e... ..>
+    equb &a0, &13, &20, &ac, &12                                      ; 17fe: a0 13 20... ..
     equs "h 4"                                                        ; 1803: 68 20 34    h 4
     equb &13, &20, &26, &13, &c8, &20, &c2, &12, &a9,   4, &4c, &ee   ; 1806: 13 20 26... . &
     equb &ff, &18, &40,   1, &94,   3, &bc,   3, &ac,   3, &10, &1a   ; 1812: ff 18 40... ..@
@@ -3899,11 +3902,11 @@ l139a = c1399+1
     ldx #&b7                                                          ; 6fa2: a2 b7       ..
     ldy #&6f ; 'o'                                                    ; 6fa4: a0 6f       .o
     jsr sub_c12ac                                                     ; 6fa6: 20 ac 12     ..
-    ; Copy 128 bytes of memory from l7090 to l7800
+    ; Copy 128 bytes of memory from relocated_7090_710f_to_7800_787f to l7800
     ldx #&7f                                                          ; 6fa9: a2 7f       ..
 ; &6fab referenced 1 time by &6fb2
 .loop_c6fab
-    lda l7090,x                                                       ; 6fab: bd 90 70    ..p
+    lda relocated_7090_710f_to_7800_787f,x                            ; 6fab: bd 90 70    ..p
     sta l7800,x                                                       ; 6fae: 9d 00 78    ..x
     dex                                                               ; 6fb1: ca          .
     bpl loop_c6fab                                                    ; 6fb2: 10 f7       ..
@@ -3934,16 +3937,31 @@ l139a = c1399+1
     equb   8,   8,   8,   7,   7,   7,   7,   6,   6,   6,   6,   5   ; 7073: 08 08 08... ...
     equb   5,   5,   5,   4,   4,   4,   4,   3,   3,   3,   3,   2   ; 707f: 05 05 05... ...
     equb   2,   2,   2,   2,   1                                      ; 708b: 02 02 02... ...
-; &7090 referenced 1 time by &6fab
-.l7090
-    equb &a9, &50, &85, &88, &a9, &5d, &85, &89, &a9, &80, &85, &8a   ; 7090: a9 50 85... .P.
-    equb &a9, &69, &85, &8b                                           ; 709c: a9 69 85... .i.
-    equs " )x"                                                        ; 70a0: 20 29 78     )x
-    equb &a9, &a0, &85, &88, &a9, &5d, &85, &89, &a9, &70, &85, &8a   ; 70a3: a9 a0 85... ...
-    equb &a9, &6a, &85, &8b                                           ; 70af: a9 6a 85... .j.
-    equs " )xLJ"                                                      ; 70b3: 20 29 78...  )x
-    equb &17, &a2, &0a                                                ; 70b8: 17 a2 0a    ...
 
+; &7090 referenced 1 time by &6fab
+.relocated_7090_710f_to_7800_787f
+    lda #&50 ; 'P'                                                    ; 7090: a9 50       .P
+    sta l0088                                                         ; 7092: 85 88       ..
+    lda #&5d ; ']'                                                    ; 7094: a9 5d       .]
+    sta l0089                                                         ; 7096: 85 89       ..
+    lda #&80                                                          ; 7098: a9 80       ..
+    sta l008a                                                         ; 709a: 85 8a       ..
+    lda #&69 ; 'i'                                                    ; 709c: a9 69       .i
+    sta l008b                                                         ; 709e: 85 8b       ..
+    jsr l7829                                                         ; 70a0: 20 29 78     )x
+    lda #&a0                                                          ; 70a3: a9 a0       ..
+    sta l0088                                                         ; 70a5: 85 88       ..
+    lda #&5d ; ']'                                                    ; 70a7: a9 5d       .]
+    sta l0089                                                         ; 70a9: 85 89       ..
+    lda #&70 ; 'p'                                                    ; 70ab: a9 70       .p
+    sta l008a                                                         ; 70ad: 85 8a       ..
+    lda #&6a ; 'j'                                                    ; 70af: a9 6a       .j
+    sta l008b                                                         ; 70b1: 85 8b       ..
+    jsr l7829                                                         ; 70b3: 20 29 78     )x
+    jmp l174a                                                         ; 70b6: 4c 4a 17    LJ.
+
+.will_be_7829_when_relocated
+    ldx #&0a                                                          ; 70b9: a2 0a       ..
 ; &70bb referenced 1 time by &70de
 .c70bb
     ; Copy 80 bytes of memory
@@ -4110,197 +4128,199 @@ l139a = c1399+1
 save pydis_start, pydis_end
 
 ; Label references by decreasing frequency:
-;     osbyte:             17
-;     l0088:              16
-;     l001e:              10
-;     return_8:            9
-;     l0089:               8
-;     l008a:               8
-;     c245e:               7
-;     l0008:               6
-;     l008b:               6
-;     l0fa5:               6
-;     c149c:               5
-;     c0fa0:               3
-;     c0fbc:               3
-;     c1399:               3
-;     c14ce:               3
-;     c2887:               3
-;     l003a:               3
-;     l007e:               3
-;     l007f:               3
-;     l104a:               3
-;     l104b:               3
-;     l104d:               3
-;     l104e:               3
-;     oswrch:              3
-;     return_3:            3
-;     video_ula_palette:   3
-;     c0e9b:               2
-;     c0f66:               2
-;     c0f9e:               2
-;     c1487:               2
-;     c28b1:               2
-;     c6ebb:               2
-;     c6ed5:               2
-;     evntv:               2
-;     irq1v:               2
-;     l0001:               2
-;     l0005:               2
-;     l000b:               2
-;     l001a:               2
-;     l001b:               2
-;     l0020:               2
-;     l003c:               2
-;     l003d:               2
-;     l0047:               2
-;     l0048:               2
-;     l0061:               2
-;     l0066:               2
-;     l0067:               2
-;     l007d:               2
-;     l0084:               2
-;     l00fc:               2
-;     l0941:               2
-;     l1d10:               2
-;     l7800:               2
-;     return_7:            2
-;     user_via_acr:        2
-;     user_via_ifr:        2
-;     video_ula_control:   2
-;     c0e92:               1
-;     c0f1d:               1
-;     c0f55:               1
-;     c0f60:               1
-;     c0f7e:               1
-;     c0f90:               1
-;     c0fa2:               1
-;     c0fa4:               1
-;     c1222:               1
-;     c12bc:               1
-;     c12e4:               1
-;     c12ec:               1
-;     c12f5:               1
-;     c12ff:               1
-;     c139b:               1
-;     c139f:               1
-;     c146d:               1
-;     c148f:               1
-;     c1499:               1
-;     c14c5:               1
-;     c14d8:               1
-;     c14f6:               1
-;     c1514:               1
-;     c1547:               1
-;     c1865:               1
-;     c1867:               1
-;     c1872:               1
-;     c1884:               1
-;     c1887:               1
-;     c21d3:               1
-;     c21e9:               1
-;     c288c:               1
-;     c2898:               1
-;     c289b:               1
-;     c28a4:               1
-;     c28bd:               1
-;     c28c9:               1
-;     c28d1:               1
-;     c28d9:               1
-;     c28e8:               1
-;     c28f1:               1
-;     c290f:               1
-;     c2925:               1
-;     c292c:               1
-;     c293b:               1
-;     c2948:               1
-;     c2955:               1
-;     c70bb:               1
-;     handle_irq1v:        1
-;     l0000:               1
-;     l0004:               1
-;     l000e:               1
-;     l000f:               1
-;     l0015:               1
-;     l0018:               1
-;     l001c:               1
-;     l001f:               1
-;     l0024:               1
-;     l003f:               1
-;     l0040:               1
-;     l007b:               1
-;     l0080:               1
-;     l0081:               1
-;     l0082:               1
-;     l0083:               1
-;     l00e0:               1
-;     l0248:               1
-;     l0300:               1
-;     l036f:               1
-;     l06e1:               1
-;     l07d0:               1
-;     l0882:               1
-;     l0900:               1
-;     l0902:               1
-;     l0947:               1
-;     l094a:               1
-;     l0967:               1
-;     l0a00:               1
-;     l0a66:               1
-;     l0bcf:               1
-;     l0efb:               1
-;     l0fa3:               1
-;     l0fd6:               1
-;     l0fd7:               1
-;     l139a:               1
-;     l1d11:               1
-;     l2221:               1
-;     l2e92:               1
-;     l2ee3:               1
-;     l6fc4:               1
-;     l7052:               1
-;     l7090:               1
-;     l74c0:               1
-;     l75c0:               1
-;     lf020:               1
-;     lffab:               1
-;     loop_c1207:          1
-;     loop_c1227:          1
-;     loop_c1230:          1
-;     loop_c123b:          1
-;     loop_c12b9:          1
-;     loop_c14e9:          1
-;     loop_c1500:          1
-;     loop_c150b:          1
-;     loop_c1549:          1
-;     loop_c182b:          1
-;     loop_c187c:          1
-;     loop_c21ee:          1
-;     loop_c6f09:          1
-;     loop_c6f48:          1
-;     loop_c6f57:          1
-;     loop_c6fab:          1
-;     loop_c70bd:          1
-;     oscli:               1
-;     osword:              1
-;     return_1:            1
-;     return_2:            1
-;     return_4:            1
-;     return_5:            1
-;     return_6:            1
-;     return_9:            1
-;     sub_c0e19:           1
-;     sub_c0ea5:           1
-;     sub_c12ac:           1
-;     system_via_ifr:      1
-;     system_via_t1c_h:    1
-;     system_via_t1c_l:    1
-;     system_via_t1l_h:    1
-;     user_via_ier:        1
-;     user_via_t1c_h:      1
-;     user_via_t1c_l:      1
-;     user_via_t1l_h:      1
-;     user_via_t1l_l:      1
+;     l0088:                             18
+;     osbyte:                            17
+;     l001e:                             10
+;     l0089:                             10
+;     l008a:                             10
+;     return_8:                           9
+;     l008b:                              8
+;     c245e:                              7
+;     l0008:                              6
+;     l0fa5:                              6
+;     c149c:                              5
+;     c0fa0:                              3
+;     c0fbc:                              3
+;     c1399:                              3
+;     c14ce:                              3
+;     c2887:                              3
+;     l003a:                              3
+;     l007e:                              3
+;     l007f:                              3
+;     l104a:                              3
+;     l104b:                              3
+;     l104d:                              3
+;     l104e:                              3
+;     oswrch:                             3
+;     return_3:                           3
+;     video_ula_palette:                  3
+;     c0e9b:                              2
+;     c0f66:                              2
+;     c0f9e:                              2
+;     c1487:                              2
+;     c28b1:                              2
+;     c6ebb:                              2
+;     c6ed5:                              2
+;     evntv:                              2
+;     irq1v:                              2
+;     l0001:                              2
+;     l0005:                              2
+;     l000b:                              2
+;     l001a:                              2
+;     l001b:                              2
+;     l0020:                              2
+;     l003c:                              2
+;     l003d:                              2
+;     l0047:                              2
+;     l0048:                              2
+;     l0061:                              2
+;     l0066:                              2
+;     l0067:                              2
+;     l007d:                              2
+;     l0084:                              2
+;     l00fc:                              2
+;     l0941:                              2
+;     l1d10:                              2
+;     l7800:                              2
+;     l7829:                              2
+;     return_7:                           2
+;     user_via_acr:                       2
+;     user_via_ifr:                       2
+;     video_ula_control:                  2
+;     c0e92:                              1
+;     c0f1d:                              1
+;     c0f55:                              1
+;     c0f60:                              1
+;     c0f7e:                              1
+;     c0f90:                              1
+;     c0fa2:                              1
+;     c0fa4:                              1
+;     c1222:                              1
+;     c12bc:                              1
+;     c12e4:                              1
+;     c12ec:                              1
+;     c12f5:                              1
+;     c12ff:                              1
+;     c139b:                              1
+;     c139f:                              1
+;     c146d:                              1
+;     c148f:                              1
+;     c1499:                              1
+;     c14c5:                              1
+;     c14d8:                              1
+;     c14f6:                              1
+;     c1514:                              1
+;     c1547:                              1
+;     c1865:                              1
+;     c1867:                              1
+;     c1872:                              1
+;     c1884:                              1
+;     c1887:                              1
+;     c21d3:                              1
+;     c21e9:                              1
+;     c288c:                              1
+;     c2898:                              1
+;     c289b:                              1
+;     c28a4:                              1
+;     c28bd:                              1
+;     c28c9:                              1
+;     c28d1:                              1
+;     c28d9:                              1
+;     c28e8:                              1
+;     c28f1:                              1
+;     c290f:                              1
+;     c2925:                              1
+;     c292c:                              1
+;     c293b:                              1
+;     c2948:                              1
+;     c2955:                              1
+;     c70bb:                              1
+;     handle_irq1v:                       1
+;     l0000:                              1
+;     l0004:                              1
+;     l000e:                              1
+;     l000f:                              1
+;     l0015:                              1
+;     l0018:                              1
+;     l001c:                              1
+;     l001f:                              1
+;     l0024:                              1
+;     l003f:                              1
+;     l0040:                              1
+;     l007b:                              1
+;     l0080:                              1
+;     l0081:                              1
+;     l0082:                              1
+;     l0083:                              1
+;     l00e0:                              1
+;     l0248:                              1
+;     l0300:                              1
+;     l036f:                              1
+;     l06e1:                              1
+;     l07d0:                              1
+;     l0882:                              1
+;     l0900:                              1
+;     l0902:                              1
+;     l0947:                              1
+;     l094a:                              1
+;     l0967:                              1
+;     l0a00:                              1
+;     l0a66:                              1
+;     l0bcf:                              1
+;     l0efb:                              1
+;     l0fa3:                              1
+;     l0fd6:                              1
+;     l0fd7:                              1
+;     l139a:                              1
+;     l174a:                              1
+;     l1d11:                              1
+;     l2221:                              1
+;     l2e92:                              1
+;     l2ee3:                              1
+;     l6fc4:                              1
+;     l7052:                              1
+;     l74c0:                              1
+;     l75c0:                              1
+;     lf020:                              1
+;     lffab:                              1
+;     loop_c1207:                         1
+;     loop_c1227:                         1
+;     loop_c1230:                         1
+;     loop_c123b:                         1
+;     loop_c12b9:                         1
+;     loop_c14e9:                         1
+;     loop_c1500:                         1
+;     loop_c150b:                         1
+;     loop_c1549:                         1
+;     loop_c182b:                         1
+;     loop_c187c:                         1
+;     loop_c21ee:                         1
+;     loop_c6f09:                         1
+;     loop_c6f48:                         1
+;     loop_c6f57:                         1
+;     loop_c6fab:                         1
+;     loop_c70bd:                         1
+;     oscli:                              1
+;     osword:                             1
+;     relocated_7090_710f_to_7800_787f:   1
+;     return_1:                           1
+;     return_2:                           1
+;     return_4:                           1
+;     return_5:                           1
+;     return_6:                           1
+;     return_9:                           1
+;     sub_c0e19:                          1
+;     sub_c0ea5:                          1
+;     sub_c12ac:                          1
+;     system_via_ifr:                     1
+;     system_via_t1c_h:                   1
+;     system_via_t1c_l:                   1
+;     system_via_t1l_h:                   1
+;     user_via_ier:                       1
+;     user_via_t1c_h:                     1
+;     user_via_t1c_l:                     1
+;     user_via_t1l_h:                     1
+;     user_via_t1l_l:                     1
 
 ; Automatically generated labels:
 ;     c0e92
@@ -4434,6 +4454,7 @@ save pydis_start, pydis_end
 ;     l104d
 ;     l104e
 ;     l139a
+;     l174a
 ;     l1d10
 ;     l1d11
 ;     l2221
@@ -4442,11 +4463,11 @@ save pydis_start, pydis_end
 ;     l6fc4
 ;     l7044
 ;     l7052
-;     l7090
 ;     l74c0
 ;     l75c0
 ;     l76c1
 ;     l7800
+;     l7829
 ;     lf020
 ;     lffab
 ;     loop_c1207
@@ -4482,12 +4503,12 @@ save pydis_start, pydis_end
 
 ; Stats:
 ;     Total size (Code + Data) = 26624 bytes
-;     Code                     = 1312 bytes (5%)
-;     Data                     = 25312 bytes (95%)
+;     Code                     = 1355 bytes (5%)
+;     Data                     = 25269 bytes (95%)
 ;
-;     Number of instructions   = 638
-;     Number of data bytes     = 20698 bytes
+;     Number of instructions   = 658
+;     Number of data bytes     = 20663 bytes
 ;     Number of data words     = 0 bytes
-;     Number of string bytes   = 4614 bytes
-;     Number of strings        = 797
+;     Number of string bytes   = 4606 bytes
+;     Number of strings        = 795
 
