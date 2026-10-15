@@ -4269,14 +4269,14 @@ l2221 = sub_c2220+1
     cmp #&72 ; 'r'                                                    ; 28df: c9 72       .r  :23df[1]
     bne check_for_cutoff_key                                          ; 28e1: d0 05       ..  :23e1[1]
     ldx #6                                                            ; 28e3: a2 06       ..  :23e3[1]
-    jmp c245e                                                         ; 28e5: 4c 5e 24    L^$ :23e5[1]
+    jmp dec_zero_page_variable                                        ; 28e5: 4c 5e 24    L^$ :23e5[1]
 
 ; &28e8 referenced 1 time by &23e1[1]
 .check_for_cutoff_key
     cmp #&63 ; 'c'                                                    ; 28e8: c9 63       .c  :23e8[1]
     bne check_for_vacuum_brake_key                                    ; 28ea: d0 05       ..  :23ea[1]
     ldx #9                                                            ; 28ec: a2 09       ..  :23ec[1]
-    jmp c245e                                                         ; 28ee: 4c 5e 24    L^$ :23ee[1]
+    jmp dec_zero_page_variable                                        ; 28ee: 4c 5e 24    L^$ :23ee[1]
 
 ; &28f1 referenced 1 time by &23ea[1]
 .check_for_vacuum_brake_key
@@ -4286,7 +4286,7 @@ l2221 = sub_c2220+1
     cmp #5                                                            ; 28f7: c9 05       ..  :23f7[1]
     beq return_21                                                     ; 28f9: f0 13       ..  :23f9[1]
     ldx #8                                                            ; 28fb: a2 08       ..  :23fb[1]
-    jsr c245e                                                         ; 28fd: 20 5e 24     ^$ :23fd[1]
+    jsr dec_zero_page_variable                                        ; 28fd: 20 5e 24     ^$ :23fd[1]
     lda l001e                                                         ; 2900: a5 1e       ..  :2400[1]
     cmp #2                                                            ; 2902: c9 02       ..  :2402[1]
     bne return_21                                                     ; 2904: d0 08       ..  :2404[1]
@@ -4305,7 +4305,7 @@ l2221 = sub_c2220+1
     cmp #&62 ; 'b'                                                    ; 2913: c9 62       .b  :2413[1]
     bne check_for_whistle_key                                         ; 2915: d0 0e       ..  :2415[1]
     ldx #&0b                                                          ; 2917: a2 0b       ..  :2417[1]
-    jsr c245e                                                         ; 2919: 20 5e 24     ^$ :2419[1]
+    jsr dec_zero_page_variable                                        ; 2919: 20 5e 24     ^$ :2419[1]
     ldy blower_setting                                                ; 291c: a4 0b       ..  :241c[1]
     cpy #2                                                            ; 291e: c0 02       ..  :241e[1]
     bcc return_22                                                     ; 2920: 90 02       ..  :2420[1]
@@ -4338,7 +4338,7 @@ l2221 = sub_c2220+1
     cmp #&69 ; 'i'                                                    ; 293f: c9 69       .i  :243f[1]
     bne check_for_firebox_key                                         ; 2941: d0 05       ..  :2441[1]
     ldx #&0a                                                          ; 2943: a2 0a       ..  :2443[1]
-    jmp c245e                                                         ; 2945: 4c 5e 24    L^$ :2445[1]
+    jmp dec_zero_page_variable                                        ; 2945: 4c 5e 24    L^$ :2445[1]
 
 ; &2948 referenced 1 time by &2441[1]
 .check_for_firebox_key
@@ -4347,17 +4347,17 @@ l2221 = sub_c2220+1
     cmp #&66 ; 'f'                                                    ; 294c: c9 66       .f  :244c[1]
     bne check_for_dampers_key                                         ; 294e: d0 05       ..  :244e[1]
     ldx #7                                                            ; 2950: a2 07       ..  :2450[1]
-    jmp c245e                                                         ; 2952: 4c 5e 24    L^$ :2452[1]
+    jmp dec_zero_page_variable                                        ; 2952: 4c 5e 24    L^$ :2452[1]
 
 ; &2955 referenced 1 time by &244e[1]
 .check_for_dampers_key
     cmp #&64 ; 'd'                                                    ; 2955: c9 64       .d  :2455[1]
     bne return_21                                                     ; 2957: d0 b5       ..  :2457[1]
     ldx #&0c                                                          ; 2959: a2 0c       ..  :2459[1]
-    jmp c245e                                                         ; 295b: 4c 5e 24    L^$ :245b[1]
+    jmp dec_zero_page_variable                                        ; 295b: 4c 5e 24    L^$ :245b[1]
 
 ; &295e referenced 7 times by &23e5[1], &23ee[1], &23fd[1], &2419[1], &2445[1], &2452[1], &245b[1]
-.c245e
+.dec_zero_page_variable
     tya                                                               ; 295e: 98          .   :245e[1]
     ldy l0000,x                                                       ; 295f: b4 00       ..  :245f[1]
     cmp #&61 ; 'a'                                                    ; 2961: c9 61       .a  :2461[1]
@@ -8000,8 +8000,8 @@ save pydis_start, pydis_end
 ;     regulator_setting:                    8
 ;     c09a5:                                7
 ;     c1be3:                                7
-;     c245e:                                7
 ;     c2887:                                7
+;     dec_zero_page_variable:               7
 ;     l0005:                                7
 ;     l0029:                                7
 ;     l002d:                                7
@@ -8995,7 +8995,6 @@ save pydis_start, pydis_end
 ;     c23bd
 ;     c23c9
 ;     c23d1
-;     c245e
 ;     c246b
 ;     c2488
 ;     c249a
