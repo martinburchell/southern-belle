@@ -723,7 +723,7 @@ lffff                   = &ffff
     equb &ff                                                          ; 11db: ff          .   :0cdb[1]
 
 ; &11dc referenced 2 times by &1789[1], &2ba5[1]
-.sub_c0cdc
+.save_to_tape
     pha                                                               ; 11dc: 48          H   :0cdc[1]
     ldx #&5f ; '_'                                                    ; 11dd: a2 5f       ._  :0cdd[1]
     ldy #&0d                                                          ; 11df: a0 0d       ..  :0cdf[1]
@@ -2469,6 +2469,8 @@ l1707 = sub_c1706+1
     lda #osbyte_flush_buffer_class                                    ; 1c53: a9 0f       ..  :1753[1]
     ldx #0                                                            ; 1c55: a2 00       ..  :1755[1]
     jsr osbyte                                                        ; 1c57: 20 f4 ff     .. :1757[1]   ; Flush all buffers (X=0)
+; Blank zero page used for saved status. Possible bug: should only blank to 0xa0, not
+; 0xa2
     lda #0                                                            ; 1c5a: a9 00       ..  :175a[1]
     ldx #&a2                                                          ; 1c5c: a2 a2       ..  :175c[1]
 ; &1c5e referenced 1 time by &1761[1]
@@ -2482,7 +2484,7 @@ l1707 = sub_c1706+1
     ldy #&19                                                          ; 1c6a: a0 19       ..  :176a[1]
     jsr sub_c0e34                                                     ; 1c6c: 20 34 0e     4. :176c[1]
 ; &1c6f referenced 2 times by &1797[1], &179b[1]
-.c176f
+.handle_keypress
     ldy #&14                                                          ; 1c6f: a0 14       ..  :176f[1]
     lda #osbyte_inkey                                                 ; 1c71: a9 81       ..  :1771[1]
     jsr osbyte                                                        ; 1c73: 20 f4 ff     .. :1773[1]   ; Wait for a key press with a time limit
@@ -2502,7 +2504,7 @@ l1707 = sub_c1706+1
 ; &1c87 referenced 1 time by &1781[1]
 .c1787
     lda #&ff                                                          ; 1c87: a9 ff       ..  :1787[1]
-    jsr sub_c0cdc                                                     ; 1c89: 20 dc 0c     .. :1789[1]
+    jsr save_to_tape                                                  ; 1c89: 20 dc 0c     .. :1789[1]
     jsr sub_c12d4                                                     ; 1c8c: 20 d4 12     .. :178c[1]
     jsr c1be3                                                         ; 1c8f: 20 e3 1b     .. :178f[1]
     jmp c1829                                                         ; 1c92: 4c 29 18    L). :1792[1]
@@ -2510,9 +2512,9 @@ l1707 = sub_c1706+1
 ; &1c95 referenced 1 time by &1785[1]
 .c1795
     cpx #&30 ; '0'                                                    ; 1c95: e0 30       .0  :1795[1]
-    bcc c176f                                                         ; 1c97: 90 d6       ..  :1797[1]
+    bcc handle_keypress                                               ; 1c97: 90 d6       ..  :1797[1]
     cpx #&38 ; '8'                                                    ; 1c99: e0 38       .8  :1799[1]
-    bcs c176f                                                         ; 1c9b: b0 d2       ..  :179b[1]
+    bcs handle_keypress                                               ; 1c9b: b0 d2       ..  :179b[1]
     stx l000e                                                         ; 1c9d: 86 0e       ..  :179d[1]
     stx l000f                                                         ; 1c9f: 86 0f       ..  :179f[1]
     lda l0000                                                         ; 1ca1: a5 00       ..  :17a1[1]
@@ -5179,7 +5181,7 @@ l2221 = sub_c2220+1
     cmp #&73 ; 's'                                                    ; 309f: c9 73       .s  :2b9f[1]
     bne c2bab                                                         ; 30a1: d0 08       ..  :2ba1[1]
     lda #0                                                            ; 30a3: a9 00       ..  :2ba3[1]
-    jsr sub_c0cdc                                                     ; 30a5: 20 dc 0c     .. :2ba5[1]
+    jsr save_to_tape                                                  ; 30a5: 20 dc 0c     .. :2ba5[1]
     jmp c2b77                                                         ; 30a8: 4c 77 2b    Lw+ :2ba8[1]
 
 ; &30ab referenced 1 time by &2ba1[1]
@@ -8160,7 +8162,6 @@ save pydis_start, pydis_end
 ;     c1521:                   2
 ;     c1656:                   2
 ;     c16e6:                   2
-;     c176f:                   2
 ;     c1844:                   2
 ;     c1b7e:                   2
 ;     c1b86:                   2
@@ -8193,6 +8194,7 @@ save pydis_start, pydis_end
 ;     c6ebb:                   2
 ;     c6ed5:                   2
 ;     evntv:                   2
+;     handle_keypress:         2
 ;     irq1v:                   2
 ;     jump_point:              2
 ;     l0001:                   2
@@ -8244,10 +8246,10 @@ save pydis_start, pydis_end
 ;     return_14:               2
 ;     return_19:               2
 ;     return_20:               2
+;     save_to_tape:            2
 ;     sub_c0911:               2
 ;     sub_c0947:               2
 ;     sub_c094a:               2
-;     sub_c0cdc:               2
 ;     sub_c10f6:               2
 ;     sub_c1239:               2
 ;     sub_c12e7:               2
@@ -8844,7 +8846,6 @@ save pydis_start, pydis_end
 ;     c1734
 ;     c1742
 ;     c174a
-;     c176f
 ;     c177b
 ;     c1787
 ;     c1795
@@ -9393,7 +9394,6 @@ save pydis_start, pydis_end
 ;     sub_c094a
 ;     sub_c0957
 ;     sub_c0ac1
-;     sub_c0cdc
 ;     sub_c0d8c
 ;     sub_c0d9b
 ;     sub_c0dc3

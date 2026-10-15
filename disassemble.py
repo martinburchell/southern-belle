@@ -1,4 +1,4 @@
-from commands import go, entry, load, move
+from commands import comment, go, entry, load, move
 import acorn
 
 acorn.bbc()
@@ -14,13 +14,12 @@ move(0x900, 0xe00, 0x6080)
 move(0x400, 0x7000, 0x400)
 move(0x300, 0x6fc4, 0x7f)
 move(0x882, 0x7052, 0x3d)
+comment(0x175a, "Blank zero page used for saved status. Possible bug: should only blank to 0xa0, not 0xa2")
 move(0x7800, 0x7090, 0x7f)
 
 entry(0x900)
+entry(0xcdc, label="save_to_tape")
+entry(0x176f, label="handle_keypress")
 entry(0x7800, label="jump_point")
-# entry(0x70b9, label="will_be_7829_when_relocated")
 
-# Add extra commands here as the disassembly progresses...
-
-# Use all the information provided to actually disassemble the program.
 go()
