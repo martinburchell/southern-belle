@@ -19,7 +19,9 @@ move(0x7800, 0x7090, 0x7f)
 
 entry(0x900)
 entry(0xcdc, label="save_to_tape")
-entry(0x176f, label="handle_keypress")
+entry(0x176f, label="handle_menu_keypress")
+entry(0x235b, label="read_keyboard_buffer")
+entry(0x23a4, label="check_for_smoke_demonstration_keys")
 entry(0x7800, label="jump_point")
 
 # Zero page
