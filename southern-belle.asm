@@ -4163,43 +4163,43 @@ l2221 = sub_c2220+1
 ; &2864 referenced 3 times by &1865[1], &186b[1], &1886[1]
 .sub_c2364
     jsr read_keyboard_buffer                                          ; 2864: 20 5b 23     [# :2364[1]
-    bcc c236a                                                         ; 2867: 90 01       ..  :2367[1]
+    bcc check_for_smoke_key                                           ; 2867: 90 01       ..  :2367[1]
     rts                                                               ; 2869: 60          `   :2369[1]
 
 ; &286a referenced 1 time by &2367[1]
-.c236a
+.check_for_smoke_key
     ora #&20 ; ' '                                                    ; 286a: 09 20       .   :236a[1]
     cmp #&73 ; 's'                                                    ; 286c: c9 73       .s  :236c[1]
-    bne c2377                                                         ; 286e: d0 07       ..  :236e[1]
+    bne check_for_8_pressed                                           ; 286e: d0 07       ..  :236e[1]
     lda smoke_on_off_flag                                             ; 2870: a5 17       ..  :2370[1]
     eor #&ff                                                          ; 2872: 49 ff       I.  :2372[1]
     sta smoke_on_off_flag                                             ; 2874: 85 17       ..  :2374[1]
     rts                                                               ; 2876: 60          `   :2376[1]
 
 ; &2877 referenced 1 time by &236e[1]
-.c2377
+.check_for_8_pressed
     cmp #&38 ; '8'                                                    ; 2877: c9 38       .8  :2377[1]
-    bne c237e                                                         ; 2879: d0 03       ..  :2379[1]
+    bne check_for_hold_key                                            ; 2879: d0 03       ..  :2379[1]
     jmp c174a                                                         ; 287b: 4c 4a 17    LJ. :237b[1]
 
 ; &287e referenced 1 time by &2379[1]
-.c237e
+.check_for_hold_key
     cmp #&68 ; 'h'                                                    ; 287e: c9 68       .h  :237e[1]
-    bne c2385                                                         ; 2880: d0 03       ..  :2380[1]
+    bne check_for_timetable_key                                       ; 2880: d0 03       ..  :2380[1]
     sta held_flag                                                     ; 2882: 85 1d       ..  :2382[1]
     rts                                                               ; 2884: 60          `   :2384[1]
 
 ; &2885 referenced 1 time by &2380[1]
-.c2385
+.check_for_timetable_key
     cmp #&74 ; 't'                                                    ; 2885: c9 74       .t  :2385[1]
-    bne c238c                                                         ; 2887: d0 03       ..  :2387[1]
+    bne check_for_accelerate_key                                      ; 2887: d0 03       ..  :2387[1]
     sta timetable_flag                                                ; 2889: 85 1c       ..  :2389[1]
     rts                                                               ; 288b: 60          `   :238b[1]
 
 ; &288c referenced 1 time by &2387[1]
-.c238c
+.check_for_accelerate_key
     cmp #&61 ; 'a'                                                    ; 288c: c9 61       .a  :238c[1]
-    bne c239b                                                         ; 288e: d0 0b       ..  :238e[1]
+    bne check_for_space_key                                           ; 288e: d0 0b       ..  :238e[1]
     ldx #5                                                            ; 2890: a2 05       ..  :2390[1]
     lda normal_or_accelerated_time                                    ; 2892: a5 1a       ..  :2392[1]
     beq c2398                                                         ; 2894: f0 02       ..  :2394[1]
@@ -4210,7 +4210,7 @@ l2221 = sub_c2220+1
     rts                                                               ; 289a: 60          `   :239a[1]
 
 ; &289b referenced 1 time by &238e[1]
-.c239b
+.check_for_space_key
     cmp #&20 ; ' '                                                    ; 289b: c9 20       .   :239b[1]
     bne check_for_smoke_demonstration_keys                            ; 289d: d0 05       ..  :239d[1]
     lda #&17                                                          ; 289f: a9 17       ..  :239f[1]
@@ -4219,15 +4219,15 @@ l2221 = sub_c2220+1
 ; &28a4 referenced 1 time by &239d[1]
 .check_for_smoke_demonstration_keys
     cmp #&35 ; '5'                                                    ; 28a4: c9 35       .5  :23a4[1]
-    bcs c23b1                                                         ; 28a6: b0 09       ..  :23a6[1]
+    bcs check_for_noise_level_key                                     ; 28a6: b0 09       ..  :23a6[1]
     cmp #&31 ; '1'                                                    ; 28a8: c9 31       .1  :23a8[1]
-    bcc c23b1                                                         ; 28aa: 90 05       ..  :23aa[1]
+    bcc check_for_noise_level_key                                     ; 28aa: 90 05       ..  :23aa[1]
     sbc #&30 ; '0'                                                    ; 28ac: e9 30       .0  :23ac[1]
     sta smoke_type_1_4                                                ; 28ae: 85 18       ..  :23ae[1]
     rts                                                               ; 28b0: 60          `   :23b0[1]
 
 ; &28b1 referenced 2 times by &23a6[1], &23aa[1]
-.c23b1
+.check_for_noise_level_key
     cmp #&6e ; 'n'                                                    ; 28b1: c9 6e       .n  :23b1[1]
     bne c23c9                                                         ; 28b3: d0 14       ..  :23b3[1]
     ldx noise_level                                                   ; 28b5: a6 84       ..  :23b5[1]
@@ -4257,31 +4257,31 @@ l2221 = sub_c2220+1
 ; &28d1 referenced 1 time by &23cb[1]
 .c23d1
     cmp #&2e ; '.'                                                    ; 28d1: c9 2e       ..  :23d1[1]
-    bne c23d9                                                         ; 28d3: d0 04       ..  :23d3[1]
+    bne check_for_regulator_key                                       ; 28d3: d0 04       ..  :23d3[1]
     inc l0fa5                                                         ; 28d5: ee a5 0f    ... :23d5[1]
     rts                                                               ; 28d8: 60          `   :23d8[1]
 
 ; &28d9 referenced 1 time by &23d3[1]
-.c23d9
+.check_for_regulator_key
     ldx control_level                                                 ; 28d9: a6 0f       ..  :23d9[1]
     cpx #&30 ; '0'                                                    ; 28db: e0 30       .0  :23db[1]
     beq return_21                                                     ; 28dd: f0 2f       ./  :23dd[1]
     cmp #&72 ; 'r'                                                    ; 28df: c9 72       .r  :23df[1]
-    bne c23e8                                                         ; 28e1: d0 05       ..  :23e1[1]
+    bne check_for_cutoff_key                                          ; 28e1: d0 05       ..  :23e1[1]
     ldx #6                                                            ; 28e3: a2 06       ..  :23e3[1]
     jmp c245e                                                         ; 28e5: 4c 5e 24    L^$ :23e5[1]
 
 ; &28e8 referenced 1 time by &23e1[1]
-.c23e8
+.check_for_cutoff_key
     cmp #&63 ; 'c'                                                    ; 28e8: c9 63       .c  :23e8[1]
-    bne c23f1                                                         ; 28ea: d0 05       ..  :23ea[1]
+    bne check_for_vacuum_brake_key                                    ; 28ea: d0 05       ..  :23ea[1]
     ldx #9                                                            ; 28ec: a2 09       ..  :23ec[1]
     jmp c245e                                                         ; 28ee: 4c 5e 24    L^$ :23ee[1]
 
 ; &28f1 referenced 1 time by &23ea[1]
-.c23f1
+.check_for_vacuum_brake_key
     cmp #&76 ; 'v'                                                    ; 28f1: c9 76       .v  :23f1[1]
-    bne c240f                                                         ; 28f3: d0 1a       ..  :23f3[1]
+    bne check_for_blower_key                                          ; 28f3: d0 1a       ..  :23f3[1]
     lda l001e                                                         ; 28f5: a5 1e       ..  :23f5[1]
     cmp #5                                                            ; 28f7: c9 05       ..  :23f7[1]
     beq return_21                                                     ; 28f9: f0 13       ..  :23f9[1]
@@ -4299,11 +4299,11 @@ l2221 = sub_c2220+1
     rts                                                               ; 290e: 60          `   :240e[1]
 
 ; &290f referenced 1 time by &23f3[1]
-.c240f
+.check_for_blower_key
     cpx #&31 ; '1'                                                    ; 290f: e0 31       .1  :240f[1]
     beq return_21                                                     ; 2911: f0 fb       ..  :2411[1]
     cmp #&62 ; 'b'                                                    ; 2913: c9 62       .b  :2413[1]
-    bne c2425                                                         ; 2915: d0 0e       ..  :2415[1]
+    bne check_for_whistle_key                                         ; 2915: d0 0e       ..  :2415[1]
     ldx #&0b                                                          ; 2917: a2 0b       ..  :2417[1]
     jsr c245e                                                         ; 2919: 20 5e 24     ^$ :2419[1]
     ldy blower_setting                                                ; 291c: a4 0b       ..  :241c[1]
@@ -4315,42 +4315,42 @@ l2221 = sub_c2220+1
     rts                                                               ; 2924: 60          `   :2424[1]
 
 ; &2925 referenced 1 time by &2415[1]
-.c2425
+.check_for_whistle_key
     cmp #&77 ; 'w'                                                    ; 2925: c9 77       .w  :2425[1]
-    bne c242c                                                         ; 2927: d0 03       ..  :2427[1]
+    bne check_for_coal_key                                            ; 2927: d0 03       ..  :2427[1]
     jmp c0bcf                                                         ; 2929: 4c cf 0b    L.. :2429[1]
 
 ; &292c referenced 1 time by &2427[1]
-.c242c
+.check_for_coal_key
     cpx #&32 ; '2'                                                    ; 292c: e0 32       .2  :242c[1]
     beq return_21                                                     ; 292e: f0 de       ..  :242e[1]
     cmp #&2d ; '-'                                                    ; 2930: c9 2d       .-  :2430[1]
-    bne c243b                                                         ; 2932: d0 07       ..  :2432[1]
+    bne check_for_injectors_key                                       ; 2932: d0 07       ..  :2432[1]
     lda coal                                                          ; 2934: a5 20       .   :2434[1]
     adc #2                                                            ; 2936: 69 02       i.  :2436[1]
     sta coal                                                          ; 2938: 85 20       .   :2438[1]
     rts                                                               ; 293a: 60          `   :243a[1]
 
 ; &293b referenced 1 time by &2432[1]
-.c243b
+.check_for_injectors_key
     cpx #&33 ; '3'                                                    ; 293b: e0 33       .3  :243b[1]
     beq return_21                                                     ; 293d: f0 cf       ..  :243d[1]
     cmp #&69 ; 'i'                                                    ; 293f: c9 69       .i  :243f[1]
-    bne c2448                                                         ; 2941: d0 05       ..  :2441[1]
+    bne check_for_firebox_key                                         ; 2941: d0 05       ..  :2441[1]
     ldx #&0a                                                          ; 2943: a2 0a       ..  :2443[1]
     jmp c245e                                                         ; 2945: 4c 5e 24    L^$ :2445[1]
 
 ; &2948 referenced 1 time by &2441[1]
-.c2448
+.check_for_firebox_key
     cpx #&34 ; '4'                                                    ; 2948: e0 34       .4  :2448[1]
     beq return_21                                                     ; 294a: f0 c2       ..  :244a[1]
     cmp #&66 ; 'f'                                                    ; 294c: c9 66       .f  :244c[1]
-    bne c2455                                                         ; 294e: d0 05       ..  :244e[1]
+    bne check_for_dampers_key                                         ; 294e: d0 05       ..  :244e[1]
     ldx #7                                                            ; 2950: a2 07       ..  :2450[1]
     jmp c245e                                                         ; 2952: 4c 5e 24    L^$ :2452[1]
 
 ; &2955 referenced 1 time by &244e[1]
-.c2455
+.check_for_dampers_key
     cmp #&64 ; 'd'                                                    ; 2955: c9 64       .d  :2455[1]
     bne return_21                                                     ; 2957: d0 b5       ..  :2457[1]
     ldx #&0c                                                          ; 2959: a2 0c       ..  :2459[1]
@@ -8203,7 +8203,6 @@ save pydis_start, pydis_end
 ;     c2094:                                2
 ;     c2217:                                2
 ;     c2335:                                2
-;     c23b1:                                2
 ;     c2488:                                2
 ;     c25c4:                                2
 ;     c27fe:                                2
@@ -8217,6 +8216,7 @@ save pydis_start, pydis_end
 ;     c2c56:                                2
 ;     c6ebb:                                2
 ;     c6ed5:                                2
+;     check_for_noise_level_key:            2
 ;     evntv:                                2
 ;     handle_menu_keypress:                 2
 ;     irq1v:                                2
@@ -8475,25 +8475,10 @@ save pydis_start, pydis_end
 ;     c2309:                                1
 ;     c2325:                                1
 ;     c2340:                                1
-;     c236a:                                1
-;     c2377:                                1
-;     c237e:                                1
-;     c2385:                                1
-;     c238c:                                1
 ;     c2398:                                1
-;     c239b:                                1
 ;     c23bd:                                1
 ;     c23c9:                                1
 ;     c23d1:                                1
-;     c23d9:                                1
-;     c23e8:                                1
-;     c23f1:                                1
-;     c240f:                                1
-;     c2425:                                1
-;     c242c:                                1
-;     c243b:                                1
-;     c2448:                                1
-;     c2455:                                1
 ;     c246b:                                1
 ;     c249a:                                1
 ;     c24a5:                                1
@@ -8536,7 +8521,22 @@ save pydis_start, pydis_end
 ;     c2c60:                                1
 ;     c7090:                                1
 ;     c782b:                                1
+;     check_for_8_pressed:                  1
+;     check_for_accelerate_key:             1
+;     check_for_blower_key:                 1
+;     check_for_coal_key:                   1
+;     check_for_cutoff_key:                 1
+;     check_for_dampers_key:                1
+;     check_for_firebox_key:                1
+;     check_for_hold_key:                   1
+;     check_for_injectors_key:              1
+;     check_for_regulator_key:              1
 ;     check_for_smoke_demonstration_keys:   1
+;     check_for_smoke_key:                  1
+;     check_for_space_key:                  1
+;     check_for_timetable_key:              1
+;     check_for_vacuum_brake_key:           1
+;     check_for_whistle_key:                1
 ;     crtc_address_register:                1
 ;     crtc_register_data:                   1
 ;     handle_irq1v:                         1
@@ -8991,26 +8991,10 @@ save pydis_start, pydis_end
 ;     c2325
 ;     c2335
 ;     c2340
-;     c236a
-;     c2377
-;     c237e
-;     c2385
-;     c238c
 ;     c2398
-;     c239b
-;     c23b1
 ;     c23bd
 ;     c23c9
 ;     c23d1
-;     c23d9
-;     c23e8
-;     c23f1
-;     c240f
-;     c2425
-;     c242c
-;     c243b
-;     c2448
-;     c2455
 ;     c245e
 ;     c246b
 ;     c2488
