@@ -1,4 +1,4 @@
-from commands import *
+from commands import go, entry, load, move
 import acorn
 
 acorn.bbc()
@@ -7,13 +7,18 @@ acorn.bbc()
 # The md5sum is optional but helps avoid confusion if there are
 # multiple versions of the same program.
 load(0xe00, "SB", "6502")
-
-# Start tracing instructions at 0x2000.
-entry(0xe00)
-
 entry(0x6e80, label="start")
-entry(0x7090, label="relocated_7090_710f_to_7800_787f")
-entry(0x70b9, label="will_be_7829_when_relocated")
+
+# Code actually copies to 0xe00 - 0x6f00
+move(0x900, 0xe00, 0x6080)
+move(0x400, 0x7000, 0x400)
+move(0x300, 0x6fc4, 0x7f)
+move(0x882, 0x7052, 0x3d)
+move(0x7800, 0x7090, 0x7f)
+
+entry(0x900)
+entry(0x7800, label="jump_point")
+# entry(0x70b9, label="will_be_7829_when_relocated")
 
 # Add extra commands here as the disassembly progresses...
 
