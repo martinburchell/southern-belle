@@ -38,7 +38,10 @@ entry(0x242c, label="check_for_coal_key")
 entry(0x243b, label="check_for_injectors_key")
 entry(0x2448, label="check_for_firebox_key")
 entry(0x2455, label="check_for_dampers_key")
-entry(0x245e, label="dec_zero_page_variable")
+entry(0x245e, label="inc_or_dec_setting")
+comment(0x245e, "Increment or decrement a setting held in zero page. The X register is the index of the setting. The y register is the character extracted from the keyboard buffer. Decrement if the shift key was pressed and the current setting is > 0. Increment if no shift and the current setting is < 5.")
+entry(0x2468, label="store_setting")
+entry(0x246b, label="inc_setting")
 entry(0x7800, label="jump_point")
 
 # Zero page
