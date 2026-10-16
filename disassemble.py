@@ -18,6 +18,8 @@ comment(0x175a, "Blank zero page used for saved status. Possible bug: should onl
 move(0x7800, 0x7090, 0x7f)
 
 entry(0x900)
+entry(0xbcf, label="whistle")
+entry(0xcc8, label="whistle_data")
 entry(0xcdc, label="save_to_tape")
 entry(0x176f, label="handle_menu_keypress")
 entry(0x235b, label="read_keyboard_buffer")

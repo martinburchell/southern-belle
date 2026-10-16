@@ -691,7 +691,7 @@ lffff                       = &ffff
     equb &ff                                                          ; 10ce: ff          .   :0bce[1]
 
 ; &10cf referenced 2 times by &2429[1], &2ae7[1]
-.c0bcf
+.whistle
     lda whistle_status                                                ; 10cf: a5 46       .F  :0bcf[1]
     bne return_4                                                      ; 10d1: d0 0a       ..  :0bd1[1]
     lda l002e                                                         ; 10d3: a5 2e       ..  :0bd3[1]
@@ -716,8 +716,8 @@ lffff                       = &ffff
     ldx #&50 ; 'P'                                                    ; 10e9: a2 50       .P  :0be9[1]
     ldy #&2a ; '*'                                                    ; 10eb: a0 2a       .*  :0beb[1]
     jsr c12ac                                                         ; 10ed: 20 ac 12     .. :0bed[1]
-    ldx #<l0cc8                                                       ; 10f0: a2 c8       ..  :0bf0[1]
-    ldy #>l0cc8                                                       ; 10f2: a0 0c       ..  :0bf2[1]
+    ldx #<whistle_data                                                ; 10f0: a2 c8       ..  :0bf0[1]
+    ldy #>whistle_data                                                ; 10f2: a0 0c       ..  :0bf2[1]
     lda #osword_sound                                                 ; 10f4: a9 07       ..  :0bf4[1]
     jmp osword                                                        ; 10f6: 4c f1 ff    L.. :0bf6[1]   ; SOUND command
 
@@ -741,7 +741,7 @@ lffff                       = &ffff
     equb &db, &7e, &3c, &18, &44, &10, &44, &10, &28, &10, &28, &10   ; 11ac: db 7e 3c... .~< :0cac[1]
     equb &ff, &ff, &ff, &ff, &3f, &cf, &f1, &fe, &ff, &ff, &ff, &ff   ; 11b8: ff ff ff... ... :0cb8[1]
     equb &fc, &f3, &8f, &7f                                           ; 11c4: fc f3 8f... ... :0cc4[1]
-.l0cc8
+.whistle_data
     equb 2, 0, 1, 0, &78, 0, &14, 0, &0c, &1f, 0, 1, &83              ; 11c8: 02 00 01... ... :0cc8[1]   ; Channel (2 bytes); Amplitude (2 bytes); Pitch (2 bytes); Duration (2 bytes)
     equs "EVENTS"                                                     ; 11d5: 45 56 45... EVE :0cd5[1]
     equb &ff                                                          ; 11db: ff          .   :0cdb[1]
@@ -4318,7 +4318,7 @@ l2221 = sub_c2220+1
 .check_for_whistle_key
     cmp #&77 ; 'w'                                                    ; 2925: c9 77       .w  :2425[1]
     bne check_for_coal_key                                            ; 2927: d0 03       ..  :2427[1]
-    jmp c0bcf                                                         ; 2929: 4c cf 0b    L.. :2429[1]
+    jmp whistle                                                       ; 2929: 4c cf 0b    L.. :2429[1]
 
 ; &292c referenced 1 time by &2427[1]
 .check_for_coal_key
@@ -5138,7 +5138,7 @@ l2221 = sub_c2220+1
 .c2ae3
     lda whistle_status                                                ; 2fe3: a5 46       .F  :2ae3[1]
     bne c2aea                                                         ; 2fe5: d0 03       ..  :2ae5[1]
-    jsr c0bcf                                                         ; 2fe7: 20 cf 0b     .. :2ae7[1]
+    jsr whistle                                                       ; 2fe7: 20 cf 0b     .. :2ae7[1]
 ; &2fea referenced 2 times by &2ae1[1], &2ae5[1]
 .c2aea
     ldx control_level                                                 ; 2fea: a6 0f       ..  :2aea[1]
@@ -7932,14 +7932,14 @@ l2221 = sub_c2220+1
 
     assert &42 == <handle_evntv
     assert &b1 == <handle_irq1v
-    assert &c8 == <l0cc8
     assert &49 == <l0d49
     assert &44 == <l7044
+    assert &c8 == <whistle_data
     assert &0f == >handle_evntv
     assert &0f == >handle_irq1v
-    assert &0c == >l0cc8
     assert &0d == >l0d49
     assert &70 == >l7044
+    assert &0c == >whistle_data
     assert &0880 == l0881 - 1
     assert &1049 == l104a - 1
     assert &104c == l104d - 1
@@ -8166,7 +8166,6 @@ save pydis_start, pydis_end
 ;     c0a60:                                2
 ;     c0a9e:                                2
 ;     c0ad8:                                2
-;     c0bcf:                                2
 ;     c0bde:                                2
 ;     c0e92:                                2
 ;     c0ed9:                                2
@@ -8300,6 +8299,7 @@ save pydis_start, pydis_end
 ;     user_via_acr:                         2
 ;     user_via_ier:                         2
 ;     video_ula_control:                    2
+;     whistle:                              2
 ;     c091a:                                1
 ;     c097c:                                1
 ;     c09a8:                                1
@@ -8769,7 +8769,6 @@ save pydis_start, pydis_end
 ;     c0b2d
 ;     c0b58
 ;     c0b76
-;     c0bcf
 ;     c0bde
 ;     c0be7
 ;     c0ce9
@@ -9170,7 +9169,6 @@ save pydis_start, pydis_end
 ;     l07ae
 ;     l0881
 ;     l0882
-;     l0cc8
 ;     l0d49
 ;     l0ea6
 ;     l0ea7
