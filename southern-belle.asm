@@ -2664,9 +2664,9 @@ l1707 = sub_c1706+1
     jsr sub_c0e13                                                     ; 1d62: 20 13 0e     .. :1862[1]
 ; &1d65 referenced 1 time by &185d[1]
 .c1865
-    jsr sub_c2364                                                     ; 1d65: 20 64 23     d# :1865[1]
+    jsr handle_game_keypress                                          ; 1d65: 20 64 23     d# :1865[1]
     jsr sub_c1e81                                                     ; 1d68: 20 81 1e     .. :1868[1]
-    jsr sub_c2364                                                     ; 1d6b: 20 64 23     d# :186b[1]
+    jsr handle_game_keypress                                          ; 1d6b: 20 64 23     d# :186b[1]
     jsr sub_c0d8c                                                     ; 1d6e: 20 8c 0d     .. :186e[1]
     lda normal_or_accelerated_time                                    ; 1d71: a5 1a       ..  :1871[1]
     beq c187d                                                         ; 1d73: f0 08       ..  :1873[1]
@@ -2681,7 +2681,7 @@ l1707 = sub_c1706+1
 .c1880
     jsr sub_c2a20                                                     ; 1d80: 20 20 2a      * :1880[1]
     jsr sub_c2a5e                                                     ; 1d83: 20 5e 2a     ^* :1883[1]
-    jsr sub_c2364                                                     ; 1d86: 20 64 23     d# :1886[1]
+    jsr handle_game_keypress                                          ; 1d86: 20 64 23     d# :1886[1]
     jsr sub_c0957                                                     ; 1d89: 20 57 09     W. :1889[1]
     jsr sub_c12e7                                                     ; 1d8c: 20 e7 12     .. :188c[1]
     jsr sub_c0dc3                                                     ; 1d8f: 20 c3 0d     .. :188f[1]
@@ -4161,7 +4161,7 @@ l2221 = sub_c2220+1
     rts                                                               ; 2863: 60          `   :2363[1]
 
 ; &2864 referenced 3 times by &1865[1], &186b[1], &1886[1]
-.sub_c2364
+.handle_game_keypress
     jsr read_keyboard_buffer                                          ; 2864: 20 5b 23     [# :2364[1]
     bcc check_for_smoke_key                                           ; 2867: 90 01       ..  :2367[1]
     rts                                                               ; 2869: 60          `   :2369[1]
@@ -4357,9 +4357,9 @@ l2221 = sub_c2220+1
     jmp inc_or_dec_setting                                            ; 295b: 4c 5e 24    L^$ :245b[1]
 
 ; Increment or decrement a setting held in zero page. The X register is the index of
-; the setting. The y register is the character extracted from, the keyboard buffer.
+; the setting. The y register is the character extracted from the keyboard buffer.
 ; Decrement if the shift key was pressed and the current setting is > 0. Increment if
-; no shift and the current setting is < 5
+; no shift and the current setting is < 5.
 ; &295e referenced 7 times by &23e5[1], &23ee[1], &23fd[1], &2419[1], &2445[1], &2452[1], &245b[1]
 .inc_or_dec_setting
     tya                                                               ; 295e: 98          .   :245e[1]
@@ -8103,6 +8103,7 @@ save pydis_start, pydis_end
 ;     c21ae:                                3
 ;     c2251:                                3
 ;     c2ae3:                                3
+;     handle_game_keypress:                 3
 ;     held_flag:                            3
 ;     l0011:                                3
 ;     l0023:                                3
@@ -8154,7 +8155,6 @@ save pydis_start, pydis_end
 ;     sub_c1b57:                            3
 ;     sub_c1d4e:                            3
 ;     sub_c234d:                            3
-;     sub_c2364:                            3
 ;     timetable_flag:                       3
 ;     user_via_ifr:                         3
 ;     video_ula_palette:                    3
@@ -9425,7 +9425,6 @@ save pydis_start, pydis_end
 ;     sub_c22f0
 ;     sub_c2313
 ;     sub_c234d
-;     sub_c2364
 ;     sub_c2471
 ;     sub_c24c2
 ;     sub_c253f
