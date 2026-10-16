@@ -478,6 +478,7 @@ lffff                       = &ffff
 ; &0f66 referenced 4 times by &09a5[1], &0a24[1], &0a42[1], &0a48[1]
 .c0a66
     lda difficulty_0_to_7                                             ; 0f66: a5 0e       ..  :0a66[1]
+; Branch if computer demo or training run
     cmp #&32 ; '2'                                                    ; 0f68: c9 32       .2  :0a68[1]
     bcc c0aa0                                                         ; 0f6a: 90 34       .4  :0a6a[1]
     lda l0040                                                         ; 0f6c: a5 40       .@  :0a6c[1]
@@ -602,6 +603,7 @@ lffff                       = &ffff
     asl l0088                                                         ; 1013: 06 88       ..  :0b13[1]
     bcs c0b28                                                         ; 1015: b0 11       ..  :0b15[1]
     lda difficulty_0_to_7                                             ; 1017: a5 0e       ..  :0b17[1]
+; Branch if not Southern Belle
     cmp #&36 ; '6'                                                    ; 1019: c9 36       .6  :0b19[1]
     bne c0b21                                                         ; 101b: d0 04       ..  :0b1b[1]
     asl l0088                                                         ; 101d: 06 88       ..  :0b1d[1]
@@ -848,6 +850,7 @@ lffff                       = &ffff
 ; &129b referenced 1 time by &1822[1]
 .sub_c0d9b
     lda difficulty_0_to_7                                             ; 129b: a5 0e       ..  :0d9b[1]
+; Branch if not problem run
     cmp #&37 ; '7'                                                    ; 129d: c9 37       .7  :0d9d[1]
     bne return_5                                                      ; 129f: d0 f9       ..  :0d9f[1]
     lda l0000                                                         ; 12a1: a5 00       ..  :0da1[1]
@@ -2180,9 +2183,11 @@ l1523 = c1521+2
     lda difficulty_0_to_7                                             ; 1a74: a5 0e       ..  :1574[1]
     ldx #8                                                            ; 1a76: a2 08       ..  :1576[1]
     ldy #&28 ; '('                                                    ; 1a78: a0 28       .(  :1578[1]
+; Branch if heavy stopping train
     cmp #&34 ; '4'                                                    ; 1a7a: c9 34       .4  :157a[1]
     beq c1590                                                         ; 1a7c: f0 12       ..  :157c[1]
     ldy #&15                                                          ; 1a7e: a0 15       ..  :157e[1]
+; Branch if problem run
     cmp #&37 ; '7'                                                    ; 1a80: c9 37       .7  :1580[1]
     beq c1590                                                         ; 1a82: f0 0c       ..  :1582[1]
     ldx #&0c                                                          ; 1a84: a2 0c       ..  :1584[1]
@@ -2917,8 +2922,10 @@ l1707 = sub_c1706+1
 ; &20b9 referenced 1 time by &1bae[1]
 .c1bb9
     lda difficulty_0_to_7                                             ; 20b9: a5 0e       ..  :1bb9[1]
+; Branch if record run
     cmp #&35 ; '5'                                                    ; 20bb: c9 35       .5  :1bbb[1]
     beq c1be3                                                         ; 20bd: f0 24       .$  :1bbd[1]
+; Branch if demo, training, or easy schedule
     cmp #&33 ; '3'                                                    ; 20bf: c9 33       .3  :1bbf[1]
     bcc c1be3                                                         ; 20c1: 90 20       .   :1bc1[1]
     ldy #1                                                            ; 20c3: a0 01       ..  :1bc3[1]
@@ -5283,13 +5290,17 @@ l2221 = sub_c2220+1
     lda #0                                                            ; 312b: a9 00       ..  :2c2b[1]
     sta l0065                                                         ; 312d: 85 65       .e  :2c2d[1]
     ldx difficulty_0_to_7                                             ; 312f: a6 0e       ..  :2c2f[1]
+; Branch if computer demo or training run
     cpx #&32 ; '2'                                                    ; 3131: e0 32       .2  :2c31[1]
     bcc return_32                                                     ; 3133: 90 39       .9  :2c33[1]
+; Branch if record run
     cpx #&35 ; '5'                                                    ; 3135: e0 35       .5  :2c35[1]
     beq return_32                                                     ; 3137: f0 35       .5  :2c37[1]
+; Branch if heavy stopping train
     cpx #&34 ; '4'                                                    ; 3139: e0 34       .4  :2c39[1]
     beq return_32                                                     ; 313b: f0 31       .1  :2c3b[1]
     lda l0000                                                         ; 313d: a5 00       ..  :2c3d[1]
+; Branch if not Southern Belle
     cpx #&36 ; '6'                                                    ; 313f: e0 36       .6  :2c3f[1]
     bne c2c46                                                         ; 3141: d0 03       ..  :2c41[1]
     ror a                                                             ; 3143: 6a          j   :2c43[1]
