@@ -746,8 +746,9 @@ lffff                       = &ffff
     equs "EVENTS"                                                     ; 11d5: 45 56 45... EVE :0cd5[1]
     equb &ff                                                          ; 11db: ff          .   :0cdb[1]
 
+; Load from or save to tape A=&ff to load, A=0 to save
 ; &11dc referenced 2 times by &1789[1], &2ba5[1]
-.save_to_tape
+.load_from_or_save_to_tape
     pha                                                               ; 11dc: 48          H   :0cdc[1]
     ldx #&5f ; '_'                                                    ; 11dd: a2 5f       ._  :0cdd[1]
     ldy #&0d                                                          ; 11df: a0 0d       ..  :0cdf[1]
@@ -761,12 +762,14 @@ lffff                       = &ffff
     lda #&15                                                          ; 11ec: a9 15       ..  :0cec[1]
     jsr oswrch                                                        ; 11ee: 20 ee ff     .. :0cee[1]   ; Write character 21
     ldx #0                                                            ; 11f1: a2 00       ..  :0cf1[1]
+; Save cassette output buffer
 ; &11f3 referenced 1 time by &0cfa[1]
 .loop_c0cf3
     lda c0900,x                                                       ; 11f3: bd 00 09    ... :0cf3[1]
     sta l74c0,x                                                       ; 11f6: 9d c0 74    ..t :0cf6[1]
     inx                                                               ; 11f9: e8          .   :0cf9[1]
     bne loop_c0cf3                                                    ; 11fa: d0 f7       ..  :0cfa[1]
+; Save cassette input buffer
 ; &11fc referenced 1 time by &0d03[1]
 .loop_c0cfc
     lda c0a00,x                                                       ; 11fc: bd 00 0a    ... :0cfc[1]
@@ -775,6 +778,7 @@ lffff                       = &ffff
     bne loop_c0cfc                                                    ; 1203: d0 f7       ..  :0d03[1]
     ; Copy 64 bytes of memory from l0881 to l76c1
     ldx #&40 ; '@'                                                    ; 1205: a2 40       .@  :0d05[1]
+; Save printer buffer???
 ; &1207 referenced 1 time by &0d0e[1]
 .loop_c0d07
     lda l0881 - 1,x                                                   ; 1207: bd 80 08    ... :0d07[1]
@@ -788,8 +792,8 @@ lffff                       = &ffff
     ldy #&0d                                                          ; 1219: a0 0d       ..  :0d19[1]
     pla                                                               ; 121b: 68          h   :0d1b[1]
     beq c0d22                                                         ; 121c: f0 04       ..  :0d1c[1]
-    ldx #<l0d49                                                       ; 121e: a2 49       .I  :0d1e[1]
-    ldy #>l0d49                                                       ; 1220: a0 0d       ..  :0d20[1]
+    ldx #<load_command                                                ; 121e: a2 49       .I  :0d1e[1]
+    ldy #>load_command                                                ; 1220: a0 0d       ..  :0d20[1]
 ; &1222 referenced 1 time by &0d1c[1]
 .c0d22
     jsr oscli                                                         ; 1222: 20 f7 ff     .. :0d22[1]
@@ -817,9 +821,10 @@ lffff                       = &ffff
     lda #6                                                            ; 1244: a9 06       ..  :0d44[1]
     jmp oswrch                                                        ; 1246: 4c ee ff    L.. :0d46[1]   ; Write character 6
 
-.l0d49
+.load_command
     equs "*LOAD A"                                                    ; 1249: 2a 4c 4f... *LO :0d49[1]
     equb &0d                                                          ; 1250: 0d          .   :0d50[1]
+.save_command
     equs "*SAVE A 0 +90"                                              ; 1251: 2a 53 41... *SA :0d51[1]
     equb &0d, 1, &1f, 6, &0a, &88                                     ; 125e: 0d 01 1f... ... :0d5e[1]
     equs "PRESS RECORD THEN RETURN"                                   ; 1264: 50 52 45... PRE :0d64[1]
@@ -2528,7 +2533,7 @@ l1707 = sub_c1706+1
 ; &1c87 referenced 1 time by &1781[1]
 .c1787
     lda #&ff                                                          ; 1c87: a9 ff       ..  :1787[1]
-    jsr save_to_tape                                                  ; 1c89: 20 dc 0c     .. :1789[1]
+    jsr load_from_or_save_to_tape                                     ; 1c89: 20 dc 0c     .. :1789[1]
     jsr sub_c12d4                                                     ; 1c8c: 20 d4 12     .. :178c[1]
     jsr c1be3                                                         ; 1c8f: 20 e3 1b     .. :178f[1]
     jmp c1829                                                         ; 1c92: 4c 29 18    L). :1792[1]
@@ -5209,7 +5214,7 @@ l2221 = sub_c2220+1
     cmp #&73 ; 's'                                                    ; 309f: c9 73       .s  :2b9f[1]
     bne c2bab                                                         ; 30a1: d0 08       ..  :2ba1[1]
     lda #0                                                            ; 30a3: a9 00       ..  :2ba3[1]
-    jsr save_to_tape                                                  ; 30a5: 20 dc 0c     .. :2ba5[1]
+    jsr load_from_or_save_to_tape                                     ; 30a5: 20 dc 0c     .. :2ba5[1]
     jmp c2b77                                                         ; 30a8: 4c 77 2b    Lw+ :2ba8[1]
 
 ; &30ab referenced 1 time by &2ba1[1]
@@ -7932,13 +7937,13 @@ l2221 = sub_c2220+1
 
     assert &42 == <handle_evntv
     assert &b1 == <handle_irq1v
-    assert &49 == <l0d49
     assert &44 == <l7044
+    assert &49 == <load_command
     assert &c8 == <whistle_data
     assert &0f == >handle_evntv
     assert &0f == >handle_irq1v
-    assert &0d == >l0d49
     assert &70 == >l7044
+    assert &0d == >load_command
     assert &0c == >whistle_data
     assert &0880 == l0881 - 1
     assert &1049 == l104a - 1
@@ -8266,6 +8271,7 @@ save pydis_start, pydis_end
 ;     l73a0:                                2
 ;     l74c0:                                2
 ;     l75c0:                                2
+;     load_from_or_save_to_tape:            2
 ;     num_events:                           2
 ;     osword:                               2
 ;     return_10:                            2
@@ -8273,7 +8279,6 @@ save pydis_start, pydis_end
 ;     return_14:                            2
 ;     return_19:                            2
 ;     return_20:                            2
-;     save_to_tape:                         2
 ;     sub_c0911:                            2
 ;     sub_c0947:                            2
 ;     sub_c094a:                            2
@@ -9169,7 +9174,6 @@ save pydis_start, pydis_end
 ;     l07ae
 ;     l0881
 ;     l0882
-;     l0d49
 ;     l0ea6
 ;     l0ea7
 ;     l0eda
