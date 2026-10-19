@@ -724,57 +724,57 @@ lffff                       = &ffff
     jmp osword                                                        ; 10f6: 4c f1 ff    L.. :0bf6[1]   ; SOUND command
 
     equb 0, 0, 0, 0, 0, 0, 0                                          ; 10f9: 00 00 00... ... :0bf9[1]
-.dial_0_character
+.dial_0_character_e0
     equb &66, &e7, &e7, &e7, &e7, &ff, &ff, &7e                       ; 1100: 66 e7 e7... f.. :0c00[1]
-.dial_1_character
+.dial_1_character_e1
     equb &7c, &f8, &f1, &e3, &e7, &ff, &ff, &7e                       ; 1108: 7c f8 f1... |.. :0c08[1]
-.dial_2_character
+.dial_2_character_e2
     equb &7e, &ff, &ff, &e0, &e0, &ff, &ff, &7e                       ; 1110: 7e ff ff... ~.. :0c10[1]
-.dial_3_character
+.dial_3_character_e3
     equb &7e, &ff, &ff, &e7, &e3, &f1, &f8, &7c                       ; 1118: 7e ff ff... ~.. :0c18[1]
-.dial_4_character
+.dial_4_character_e4
     equb &7e, &ff, &ff, &e7, &e7, &e7, &e7, &66                       ; 1120: 7e ff ff... ~.. :0c20[1]
-.regulator_top_0_character_e0
+.regulator_top_0_character_e5
     equb &fc, &fc, &fc, &fc, &fc, &fc, &fc, &fc                       ; 1128: fc fc fc... ... :0c28[1]
-.regulator_top_1_character_e1
+.regulator_top_1_character_e6
     equb &fc, &fc, &fc, &fc, &fc, &fc, &fc, &f9                       ; 1130: fc fc fc... ... :0c30[1]
-.regulator_top_2_character_e2
+.regulator_top_2_character_e7
     equb &fc, &fc, &fc, &fc, &fc, &f9, &f9, &f9                       ; 1138: fc fc fc... ... :0c38[1]
-.regulator_top_3_character_e3
+.regulator_top_3_character_e8
     equb &fc, &fc, &fc, &f9, &f9, &f9, &f3, &f3                       ; 1140: fc fc fc... ... :0c40[1]
-.regulator_top_4_character_e4
+.regulator_top_4_character_e9
     equb &fc, &fc, &f9, &f9, &f3, &f3, &e7, &e7                       ; 1148: fc fc f9... ... :0c48[1]
-.regulator_bot_0_character_e5
+.regulator_bot_0_character_ea
     equb &fc, &fc, &fc, &fc, &fc, &fd, &fd, &7f                       ; 1150: fc fc fc... ... :0c50[1]
-.regulator_bot_1_character_e6
+.regulator_bot_1_character_eb
     equb &f9, &f9, &f9, &f9, &f9, &fb, &fb, &7f                       ; 1158: f9 f9 f9... ... :0c58[1]
-.regulator_bot_2_character_e7
+.regulator_bot_2_character_ec
     equb &f9, &f9, &f3, &f3, &f3, &f7, &f7, &7f                       ; 1160: f9 f9 f3... ... :0c60[1]
-.regulator_bot_3_character_e8
+.regulator_bot_3_character_ed
     equb &e7, &e7, &e7, &cf, &df, &df, &ff, &7f                       ; 1168: e7 e7 e7... ... :0c68[1]
-.regulator_bot_4_character_e9
+.regulator_bot_4_character_ee
     equb &cf, &cf, &9f, &9f, &7f, &ff, &ff, &7f                       ; 1170: cf cf 9f... ... :0c70[1]
-.quarters_character_ea
+.quarters_character_ef
     equb 0, &20, &58, &98, &1b, &1f, 3, 0                             ; 1178: 00 20 58... . X :0c78[1]
-.halves_character_eb
+.halves_character_f0
     equb 0, &20, &5f, &83, &1f, &18, &1f, 0                           ; 1180: 00 20 5f... . _ :0c80[1]
-.one_over_character_ec
+.one_over_character_f1
     equs "0p00y"                                                      ; 1188: 30 70 30... 0p0 :0c88[1]
     equb 2, 4, 0                                                      ; 118d: 02 04 00    ... :0c8d[1]
-.three_over_character_ed
+.three_over_character_f2
     equb &78, &18, &38, &18, &79, 2, 4, 0                             ; 1190: 78 18 38... x.8 :0c90[1]
-.character_ee
+.character_f3
     equb &3c, &18, &18, &18, &18                                      ; 1198: 3c 18 18... <.. :0c98[1]
     equs "<<<"                                                        ; 119d: 3c 3c 3c    <<< :0c9d[1]
-.up_arrow_character_ef
+.up_arrow_character_f4
     equb &18, &3c, &7e, &db, &18, &18, &18, 0                         ; 11a0: 18 3c 7e... .<~ :0ca0[1]
-.down_arrow_character_f0
+.down_arrow_character_f5
     equb 0, &18, &18, &18, &db, &7e, &3c, &18                         ; 11a8: 00 18 18... ... :0ca8[1]
-.character_f1
+.character_f6
     equb &44, &10, &44, &10, &28, &10, &28, &10                       ; 11b0: 44 10 44... D.D :0cb0[1]
-.character_f2
+.character_f7
     equb &ff, &ff, &ff, &ff, &3f, &cf, &f1, &fe                       ; 11b8: ff ff ff... ... :0cb8[1]
-.character_f3
+.character_f8
     equb &ff, &ff, &ff, &ff, &fc, &f3, &8f, &7f                       ; 11c0: ff ff ff... ... :0cc0[1]
 .whistle_data
     equb 2, 0, 1, 0, &78, 0, &14, 0, &0c, &1f, 0, 1, &83              ; 11c8: 02 00 01... ... :0cc8[1]   ; Channel (2 bytes); Amplitude (2 bytes); Pitch (2 bytes); Duration (2 bytes)
