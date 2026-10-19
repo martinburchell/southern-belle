@@ -717,32 +717,65 @@ lffff                       = &ffff
     inc whistle_status                                                ; 10e7: e6 46       .F  :0be7[1]
     ldx #&50 ; 'P'                                                    ; 10e9: a2 50       .P  :0be9[1]
     ldy #&2a ; '*'                                                    ; 10eb: a0 2a       .*  :0beb[1]
-    jsr c12ac                                                         ; 10ed: 20 ac 12     .. :0bed[1]
+    jsr oswrch_from_xy_addr_to_ff                                     ; 10ed: 20 ac 12     .. :0bed[1]
     ldx #<whistle_data                                                ; 10f0: a2 c8       ..  :0bf0[1]
     ldy #>whistle_data                                                ; 10f2: a0 0c       ..  :0bf2[1]
     lda #osword_sound                                                 ; 10f4: a9 07       ..  :0bf4[1]
     jmp osword                                                        ; 10f6: 4c f1 ff    L.. :0bf6[1]   ; SOUND command
 
-    equb   0,   0,   0,   0,   0,   0,   0, &66, &e7, &e7, &e7, &e7   ; 10f9: 00 00 00... ... :0bf9[1]
-    equb &ff, &ff, &7e, &7c, &f8, &f1, &e3, &e7, &ff, &ff, &7e, &7e   ; 1105: ff ff 7e... ..~ :0c05[1]
-    equb &ff, &ff, &e0, &e0, &ff, &ff, &7e, &7e, &ff, &ff, &e7, &e3   ; 1111: ff ff e0... ... :0c11[1]
-    equb &f1, &f8, &7c, &7e, &ff, &ff, &e7, &e7, &e7, &e7, &66, &fc   ; 111d: f1 f8 7c... ..| :0c1d[1]
-    equb &fc, &fc, &fc, &fc, &fc, &fc, &fc, &fc, &fc, &fc, &fc, &fc   ; 1129: fc fc fc... ... :0c29[1]
-    equb &fc, &fc, &f9, &fc, &fc, &fc, &fc, &fc, &f9, &f9, &f9, &fc   ; 1135: fc fc f9... ... :0c35[1]
-    equb &fc, &fc, &f9, &f9, &f9, &f3, &f3, &fc, &fc, &f9, &f9, &f3   ; 1141: fc fc f9... ... :0c41[1]
-    equb &f3, &e7, &e7, &fc, &fc, &fc, &fc, &fc, &fd, &fd, &7f, &f9   ; 114d: f3 e7 e7... ... :0c4d[1]
-    equb &f9, &f9, &f9, &f9, &fb, &fb, &7f, &f9, &f9, &f3, &f3, &f3   ; 1159: f9 f9 f9... ... :0c59[1]
-    equb &f7, &f7, &7f, &e7, &e7, &e7, &cf, &df, &df, &ff, &7f, &cf   ; 1165: f7 f7 7f... ... :0c65[1]
-    equb &cf, &9f, &9f, &7f, &ff, &ff, &7f,   0, &20, &58, &98, &1b   ; 1171: cf 9f 9f... ... :0c71[1]
-    equb &1f,   3,   0,   0, &20, &5f, &83, &1f, &18, &1f,   0        ; 117d: 1f 03 00... ... :0c7d[1]
+    equb 0, 0, 0, 0, 0, 0, 0                                          ; 10f9: 00 00 00... ... :0bf9[1]
+.dial_0_character
+    equb &66, &e7, &e7, &e7, &e7, &ff, &ff, &7e                       ; 1100: 66 e7 e7... f.. :0c00[1]
+.dial_1_character
+    equb &7c, &f8, &f1, &e3, &e7, &ff, &ff, &7e                       ; 1108: 7c f8 f1... |.. :0c08[1]
+.dial_2_character
+    equb &7e, &ff, &ff, &e0, &e0, &ff, &ff, &7e                       ; 1110: 7e ff ff... ~.. :0c10[1]
+.dial_3_character
+    equb &7e, &ff, &ff, &e7, &e3, &f1, &f8, &7c                       ; 1118: 7e ff ff... ~.. :0c18[1]
+.dial_4_character
+    equb &7e, &ff, &ff, &e7, &e7, &e7, &e7, &66                       ; 1120: 7e ff ff... ~.. :0c20[1]
+.regulator_top_0_character_e0
+    equb &fc, &fc, &fc, &fc, &fc, &fc, &fc, &fc                       ; 1128: fc fc fc... ... :0c28[1]
+.regulator_top_1_character_e1
+    equb &fc, &fc, &fc, &fc, &fc, &fc, &fc, &f9                       ; 1130: fc fc fc... ... :0c30[1]
+.regulator_top_2_character_e2
+    equb &fc, &fc, &fc, &fc, &fc, &f9, &f9, &f9                       ; 1138: fc fc fc... ... :0c38[1]
+.regulator_top_3_character_e3
+    equb &fc, &fc, &fc, &f9, &f9, &f9, &f3, &f3                       ; 1140: fc fc fc... ... :0c40[1]
+.regulator_top_4_character_e4
+    equb &fc, &fc, &f9, &f9, &f3, &f3, &e7, &e7                       ; 1148: fc fc f9... ... :0c48[1]
+.regulator_bot_0_character_e5
+    equb &fc, &fc, &fc, &fc, &fc, &fd, &fd, &7f                       ; 1150: fc fc fc... ... :0c50[1]
+.regulator_bot_1_character_e6
+    equb &f9, &f9, &f9, &f9, &f9, &fb, &fb, &7f                       ; 1158: f9 f9 f9... ... :0c58[1]
+.regulator_bot_2_character_e7
+    equb &f9, &f9, &f3, &f3, &f3, &f7, &f7, &7f                       ; 1160: f9 f9 f3... ... :0c60[1]
+.regulator_bot_3_character_e8
+    equb &e7, &e7, &e7, &cf, &df, &df, &ff, &7f                       ; 1168: e7 e7 e7... ... :0c68[1]
+.regulator_bot_4_character_e9
+    equb &cf, &cf, &9f, &9f, &7f, &ff, &ff, &7f                       ; 1170: cf cf 9f... ... :0c70[1]
+.quarters_character_ea
+    equb 0, &20, &58, &98, &1b, &1f, 3, 0                             ; 1178: 00 20 58... . X :0c78[1]
+.halves_character_eb
+    equb 0, &20, &5f, &83, &1f, &18, &1f, 0                           ; 1180: 00 20 5f... . _ :0c80[1]
+.one_over_character_ec
     equs "0p00y"                                                      ; 1188: 30 70 30... 0p0 :0c88[1]
-    equb   2,   4, 0, &78, &18, &38, &18, &79, 2, 4, 0, &3c, &18, &18 ; 118d: 02 04 00... ... :0c8d[1]
-    equb &18, &18                                                     ; 119b: 18 18       ..  :0c9b[1]
+    equb 2, 4, 0                                                      ; 118d: 02 04 00    ... :0c8d[1]
+.three_over_character_ed
+    equb &78, &18, &38, &18, &79, 2, 4, 0                             ; 1190: 78 18 38... x.8 :0c90[1]
+.character_ee
+    equb &3c, &18, &18, &18, &18                                      ; 1198: 3c 18 18... <.. :0c98[1]
     equs "<<<"                                                        ; 119d: 3c 3c 3c    <<< :0c9d[1]
-    equb &18, &3c, &7e, &db, &18, &18, &18,   0,   0, &18, &18, &18   ; 11a0: 18 3c 7e... .<~ :0ca0[1]
-    equb &db, &7e, &3c, &18, &44, &10, &44, &10, &28, &10, &28, &10   ; 11ac: db 7e 3c... .~< :0cac[1]
-    equb &ff, &ff, &ff, &ff, &3f, &cf, &f1, &fe, &ff, &ff, &ff, &ff   ; 11b8: ff ff ff... ... :0cb8[1]
-    equb &fc, &f3, &8f, &7f                                           ; 11c4: fc f3 8f... ... :0cc4[1]
+.up_arrow_character_ef
+    equb &18, &3c, &7e, &db, &18, &18, &18, 0                         ; 11a0: 18 3c 7e... .<~ :0ca0[1]
+.down_arrow_character_f0
+    equb 0, &18, &18, &18, &db, &7e, &3c, &18                         ; 11a8: 00 18 18... ... :0ca8[1]
+.character_f1
+    equb &44, &10, &44, &10, &28, &10, &28, &10                       ; 11b0: 44 10 44... D.D :0cb0[1]
+.character_f2
+    equb &ff, &ff, &ff, &ff, &3f, &cf, &f1, &fe                       ; 11b8: ff ff ff... ... :0cb8[1]
+.character_f3
+    equb &ff, &ff, &ff, &ff, &fc, &f3, &8f, &7f                       ; 11c0: ff ff ff... ... :0cc0[1]
 .whistle_data
     equb 2, 0, 1, 0, &78, 0, &14, 0, &0c, &1f, 0, 1, &83              ; 11c8: 02 00 01... ... :0cc8[1]   ; Channel (2 bytes); Amplitude (2 bytes); Pitch (2 bytes); Duration (2 bytes)
     equs "EVENTS"                                                     ; 11d5: 45 56 45... EVE :0cd5[1]
@@ -1746,7 +1779,7 @@ l11cf = c11cd+2
     rts                                                               ; 17ab: 60          `   :12ab[1]
 
 ; &17ac referenced 10 times by &0bed[1], &1300[1], &141f[1], &18ae[1], &18cb[1], &1c8e[1], &1ccc[1], &288d[1], &2a4d[1], &6fa6
-.c12ac
+.oswrch_from_xy_addr_to_ff
     stx l0088                                                         ; 17ac: 86 88       ..  :12ac[1]
     sty l0089                                                         ; 17ae: 84 89       ..  :12ae[1]
     ldy #0                                                            ; 17b0: a0 00       ..  :12b0[1]
@@ -1800,7 +1833,7 @@ l11cf = c11cd+2
     pha                                                               ; 17fb: 48          H   :12fb[1]
     ldx #&13                                                          ; 17fc: a2 13       ..  :12fc[1]
     ldy #&13                                                          ; 17fe: a0 13       ..  :12fe[1]
-    jsr c12ac                                                         ; 1800: 20 ac 12     .. :1300[1]
+    jsr oswrch_from_xy_addr_to_ff                                     ; 1800: 20 ac 12     .. :1300[1]
     pla                                                               ; 1803: 68          h   :1303[1]
     jsr sub_c1334                                                     ; 1804: 20 34 13     4. :1304[1]
     jsr sub_c1326                                                     ; 1807: 20 26 13     &. :1307[1]
@@ -1989,7 +2022,7 @@ l139b = c1399+2
     sta l149b                                                         ; 1918: 8d 9b 14    ... :1418[1]
     ldx #&84                                                          ; 191b: a2 84       ..  :141b[1]
     ldy #&14                                                          ; 191d: a0 14       ..  :141d[1]
-    jsr c12ac                                                         ; 191f: 20 ac 12     .. :141f[1]
+    jsr oswrch_from_xy_addr_to_ff                                     ; 191f: 20 ac 12     .. :141f[1]
     jsr sub_c14d1                                                     ; 1922: 20 d1 14     .. :1422[1]
     lda #&67 ; 'g'                                                    ; 1925: a9 67       .g  :1425[1]
     sta l0094                                                         ; 1927: 85 94       ..  :1427[1]
@@ -2709,7 +2742,7 @@ l1707 = sub_c1706+1
     jsr sub_c0e02                                                     ; 1da7: 20 02 0e     .. :18a7[1]
     ldx #&66 ; 'f'                                                    ; 1daa: a2 66       .f  :18aa[1]
     ldy #&19                                                          ; 1dac: a0 19       ..  :18ac[1]
-    jsr c12ac                                                         ; 1dae: 20 ac 12     .. :18ae[1]
+    jsr oswrch_from_xy_addr_to_ff                                     ; 1dae: 20 ac 12     .. :18ae[1]
     lda #0                                                            ; 1db1: a9 00       ..  :18b1[1]
     sta held_flag                                                     ; 1db3: 85 1d       ..  :18b3[1]
 ; &1db5 referenced 1 time by &18ba[1]
@@ -2728,7 +2761,7 @@ l1707 = sub_c1706+1
     jsr sub_c0e02                                                     ; 1dc4: 20 02 0e     .. :18c4[1]
     ldx #&50 ; 'P'                                                    ; 1dc7: a2 50       .P  :18c7[1]
     ldy #&19                                                          ; 1dc9: a0 19       ..  :18c9[1]
-    jsr c12ac                                                         ; 1dcb: 20 ac 12     .. :18cb[1]
+    jsr oswrch_from_xy_addr_to_ff                                     ; 1dcb: 20 ac 12     .. :18cb[1]
     lda l001b                                                         ; 1dce: a5 1b       ..  :18ce[1]
     jsr c2887                                                         ; 1dd0: 20 87 28     .( :18d0[1]
     lda l001b                                                         ; 1dd3: a5 1b       ..  :18d3[1]
@@ -2996,7 +3029,7 @@ l1707 = sub_c1706+1
 .sub_c1c8a
     ldx #&fe                                                          ; 218a: a2 fe       ..  :1c8a[1]
     ldy #&1c                                                          ; 218c: a0 1c       ..  :1c8c[1]
-    jsr c12ac                                                         ; 218e: 20 ac 12     .. :1c8e[1]
+    jsr oswrch_from_xy_addr_to_ff                                     ; 218e: 20 ac 12     .. :1c8e[1]
     ldy l0002                                                         ; 2191: a4 02       ..  :1c91[1]
     lda l06e1,y                                                       ; 2193: b9 e1 06    ... :1c93[1]
     tay                                                               ; 2196: a8          .   :1c96[1]
@@ -3034,7 +3067,7 @@ l1707 = sub_c1706+1
     bne loop_c1cbe                                                    ; 21c6: d0 f6       ..  :1cc6[1]
     ldx #2                                                            ; 21c8: a2 02       ..  :1cc8[1]
     ldy #&1d                                                          ; 21ca: a0 1d       ..  :1cca[1]
-    jsr c12ac                                                         ; 21cc: 20 ac 12     .. :1ccc[1]
+    jsr oswrch_from_xy_addr_to_ff                                     ; 21cc: 20 ac 12     .. :1ccc[1]
     ldx #7                                                            ; 21cf: a2 07       ..  :1ccf[1]
     ldy l0002                                                         ; 21d1: a4 02       ..  :1cd1[1]
 ; &21d3 referenced 1 time by &1cfb[1]
@@ -4933,7 +4966,7 @@ l2221 = sub_c2220+1
 .sub_c2889
     ldx #&83                                                          ; 2d89: a2 83       ..  :2889[1]
     ldy #&28 ; '('                                                    ; 2d8b: a0 28       .(  :288b[1]
-    jsr c12ac                                                         ; 2d8d: 20 ac 12     .. :288d[1]
+    jsr oswrch_from_xy_addr_to_ff                                     ; 2d8d: 20 ac 12     .. :288d[1]
     lda l0064                                                         ; 2d90: a5 64       .d  :2890[1]
     jsr sub_c28a0                                                     ; 2d92: 20 a0 28     .( :2892[1]
 ; &2d95 referenced 1 time by &289d[1]
@@ -5053,7 +5086,7 @@ l2221 = sub_c2220+1
 .c2a49
     ldx #&55 ; 'U'                                                    ; 2f49: a2 55       .U  :2a49[1]
     ldy #&2a ; '*'                                                    ; 2f4b: a0 2a       .*  :2a4b[1]
-    jmp c12ac                                                         ; 2f4d: 4c ac 12    L.. :2a4d[1]
+    jmp oswrch_from_xy_addr_to_ff                                     ; 2f4d: 4c ac 12    L.. :2a4d[1]
 
     equb &1f, &13, &0d, &97, &98, &1f, &11, &0b, &96, &1f, &16, &0b   ; 2f50: 1f 13 0d... ... :2a50[1]
     equb &96, &ff                                                     ; 2f5c: 96 ff       ..  :2a5c[1]
@@ -7627,7 +7660,7 @@ l2221 = sub_c2220+1
     sta user_via_acr                                                  ; 6f9f: 8d 6b fe    .k.
     ldx #&b7                                                          ; 6fa2: a2 b7       ..
     ldy #&6f ; 'o'                                                    ; 6fa4: a0 6f       .o
-    jsr c12ac                                                         ; 6fa6: 20 ac 12     ..
+    jsr oswrch_from_xy_addr_to_ff                                     ; 6fa6: 20 ac 12     ..
     ; Copy 128 bytes of memory from c7090 to jump_point
     ldx #&7f                                                          ; 6fa9: a2 7f       ..
 ; &6fab referenced 1 time by &6fb2
@@ -7993,7 +8026,6 @@ save pydis_start, pydis_end
 ;     l0092:                               11
 ;     l009b:                               11
 ;     oswrch:                              11
-;     c12ac:                               10
 ;     firebox_setting:                     10
 ;     l0013:                               10
 ;     l001b:                               10
@@ -8001,6 +8033,7 @@ save pydis_start, pydis_end
 ;     l0049:                               10
 ;     l0090:                               10
 ;     l00a0:                               10
+;     oswrch_from_xy_addr_to_ff:           10
 ;     control_level:                        9
 ;     return_21:                            9
 ;     sub_c0e34:                            9
@@ -8849,7 +8882,6 @@ save pydis_start, pydis_end
 ;     c1288
 ;     c1294
 ;     c12a6
-;     c12ac
 ;     c12b2
 ;     c12c2
 ;     c12ce
