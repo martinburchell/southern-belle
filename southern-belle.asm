@@ -715,11 +715,12 @@ lffff                       = &ffff
 ; &10e7 referenced 1 time by &0be3[1]
 .c0be7
     inc whistle_status                                                ; 10e7: e6 46       .F  :0be7[1]
+; Show whistle pulled and jet of steam
     ldx #&50 ; 'P'                                                    ; 10e9: a2 50       .P  :0be9[1]
     ldy #&2a ; '*'                                                    ; 10eb: a0 2a       .*  :0beb[1]
     jsr oswrch_from_xy_addr_to_ff                                     ; 10ed: 20 ac 12     .. :0bed[1]
-    ldx #<whistle_data                                                ; 10f0: a2 c8       ..  :0bf0[1]
-    ldy #>whistle_data                                                ; 10f2: a0 0c       ..  :0bf2[1]
+    ldx #<whistle_sound_data                                          ; 10f0: a2 c8       ..  :0bf0[1]
+    ldy #>whistle_sound_data                                          ; 10f2: a0 0c       ..  :0bf2[1]
     lda #osword_sound                                                 ; 10f4: a9 07       ..  :0bf4[1]
     jmp osword                                                        ; 10f6: 4c f1 ff    L.. :0bf6[1]   ; SOUND command
 
@@ -770,13 +771,13 @@ lffff                       = &ffff
     equb &18, &3c, &7e, &db, &18, &18, &18, 0                         ; 11a0: 18 3c 7e... .<~ :0ca0[1]
 .down_arrow_character_95
     equb 0, &18, &18, &18, &db, &7e, &3c, &18                         ; 11a8: 00 18 18... ... :0ca8[1]
-.character_96
+.whistle_jet_character_96
     equb &44, &10, &44, &10, &28, &10, &28, &10                       ; 11b0: 44 10 44... D.D :0cb0[1]
-.character_97
+.whistle_left_character_97
     equb &ff, &ff, &ff, &ff, &3f, &cf, &f1, &fe                       ; 11b8: ff ff ff... ... :0cb8[1]
-.character_98
+.whistle_right_character_98
     equb &ff, &ff, &ff, &ff, &fc, &f3, &8f, &7f                       ; 11c0: ff ff ff... ... :0cc0[1]
-.whistle_data
+.whistle_sound_data
     equb 2, 0, 1, 0, &78, 0, &14, 0, &0c, &1f, 0, 1, &83              ; 11c8: 02 00 01... ... :0cc8[1]   ; Channel (2 bytes); Amplitude (2 bytes); Pitch (2 bytes); Duration (2 bytes)
     equs "EVENTS"                                                     ; 11d5: 45 56 45... EVE :0cd5[1]
     equb &ff                                                          ; 11db: ff          .   :0cdb[1]
@@ -5088,6 +5089,7 @@ l2221 = sub_c2220+1
     ldy #&2a ; '*'                                                    ; 2f4b: a0 2a       .*  :2a4b[1]
     jmp oswrch_from_xy_addr_to_ff                                     ; 2f4d: 4c ac 12    L.. :2a4d[1]
 
+.draw_whistle_characters
     equb &1f, &13, &0d, &97, &98, &1f, &11, &0b, &96, &1f, &16, &0b   ; 2f50: 1f 13 0d... ... :2a50[1]
     equb &96, &ff                                                     ; 2f5c: 96 ff       ..  :2a5c[1]
 
@@ -7983,12 +7985,12 @@ l2221 = sub_c2220+1
     assert &b1 == <handle_irq1v
     assert &44 == <l7044
     assert &49 == <load_command
-    assert &c8 == <whistle_data
+    assert &c8 == <whistle_sound_data
     assert &0f == >handle_evntv
     assert &0f == >handle_irq1v
     assert &70 == >l7044
     assert &0d == >load_command
-    assert &0c == >whistle_data
+    assert &0c == >whistle_sound_data
     assert &0880 == l0881 - 1
     assert &1049 == l104a - 1
     assert &104c == l104d - 1
