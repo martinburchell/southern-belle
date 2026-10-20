@@ -1832,8 +1832,9 @@ l11cf = c11cd+2
 .sub_c12f9
     sta l0005                                                         ; 17f9: 85 05       ..  :12f9[1]
     pha                                                               ; 17fb: 48          H   :12fb[1]
-; Set the graphics window, clear the graphics area, reset graphics and text windows,
-; write text at the graphics cursor, move to absolute position 320, 940
+; Set the graphics window to 320,916,956,940 clear the graphics area, reset graphics
+; and text windows, write text at the graphics cursor, move to absolute position 320,
+; 940
     ldx #&13                                                          ; 17fc: a2 13       ..  :12fc[1]
     ldy #&13                                                          ; 17fe: a0 13       ..  :12fe[1]
     jsr oswrch_from_xy_addr_to_ff                                     ; 1800: 20 ac 12     .. :1300[1]
