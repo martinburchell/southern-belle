@@ -2745,6 +2745,7 @@ l1707 = sub_c1706+1
     lda held_flag                                                     ; 1da3: a5 1d       ..  :18a3[1]
     beq c18be                                                         ; 1da5: f0 17       ..  :18a5[1]
     jsr sub_c0e02                                                     ; 1da7: 20 02 0e     .. :18a7[1]
+; Print 'HELD--Press RETURN
     ldx #&66 ; 'f'                                                    ; 1daa: a2 66       .f  :18aa[1]
     ldy #&19                                                          ; 1dac: a0 19       ..  :18ac[1]
     jsr oswrch_from_xy_addr_to_ff                                     ; 1dae: 20 ac 12     .. :18ae[1]
@@ -2764,6 +2765,7 @@ l1707 = sub_c1706+1
 ; &1dc4 referenced 1 time by &1897[1]
 .c18c4
     jsr sub_c0e02                                                     ; 1dc4: 20 02 0e     .. :18c4[1]
+; Print GAME OVER
     ldx #&50 ; 'P'                                                    ; 1dc7: a2 50       .P  :18c7[1]
     ldy #&19                                                          ; 1dc9: a0 19       ..  :18c9[1]
     jsr oswrch_from_xy_addr_to_ff                                     ; 1dcb: 20 ac 12     .. :18cb[1]
@@ -2820,11 +2822,16 @@ l1707 = sub_c1706+1
     bne c190a                                                         ; 1e27: d0 e1       ..  :1927[1]
     jmp c174a                                                         ; 1e29: 4c 4a 17    LJ. :1929[1]
 
+.select_timetable_events_or_start_text
     equb &1f, 0, &18                                                  ; 1e2c: 1f 00 18    ... :192c[1]
     equs "Select Timetable,Events or Start"                           ; 1e2f: 53 65 6c... Sel :192f[1]
-    equb &ff, &1f, &0b, 6                                             ; 1e4f: ff 1f 0b... ... :194f[1]
+    equb &ff                                                          ; 1e4f: ff          .   :194f[1]
+.game_over_text
+    equb &1f, &0b, 6                                                  ; 1e50: 1f 0b 06    ... :1950[1]
     equs "GAME OVER  PRESS A"                                         ; 1e53: 47 41 4d... GAM :1953[1]
-    equb &ff, &1f, &0b, 6                                             ; 1e65: ff 1f 0b... ... :1965[1]
+    equb &ff                                                          ; 1e65: ff          .   :1965[1]
+.held_press_return_text
+    equb &1f, &0b, 6                                                  ; 1e66: 1f 0b 06    ... :1966[1]
     equs "HELD--Press RETURN"                                         ; 1e69: 48 45 4c... HEL :1969[1]
     equb &ff                                                          ; 1e7b: ff          .   :197b[1]
 
@@ -2986,7 +2993,7 @@ l1707 = sub_c1706+1
     sta l0048                                                         ; 20e1: 85 48       .H  :1be1[1]
 ; &20e3 referenced 7 times by &0d97[1], &178f[1], &1bbd[1], &1bc1[1], &1bc7[1], &1bd2[1], &2bb2[1]
 .c1be3
-    jsr sub_c1c8a                                                     ; 20e3: 20 8a 1c     .. :1be3[1]
+    jsr move_text_cursor_to_33_14                                     ; 20e3: 20 8a 1c     .. :1be3[1]
     jsr sub_c1601                                                     ; 20e6: 20 01 16     .. :1be6[1]
     jsr sub_c10cb                                                     ; 20e9: 20 cb 10     .. :1be9[1]
     ldy #1                                                            ; 20ec: a0 01       ..  :1bec[1]
@@ -3031,7 +3038,7 @@ l1707 = sub_c1706+1
     equb &ff                                                          ; 2189: ff          .   :1c89[1]
 
 ; &218a referenced 1 time by &1be3[1]
-.sub_c1c8a
+.move_text_cursor_to_33_14
     ldx #&fe                                                          ; 218a: a2 fe       ..  :1c8a[1]
     ldy #&1c                                                          ; 218c: a0 1c       ..  :1c8c[1]
     jsr oswrch_from_xy_addr_to_ff                                     ; 218e: 20 ac 12     .. :1c8e[1]
@@ -3070,6 +3077,7 @@ l1707 = sub_c1706+1
     iny                                                               ; 21c4: c8          .   :1cc4[1]
     dex                                                               ; 21c5: ca          .   :1cc5[1]
     bne loop_c1cbe                                                    ; 21c6: d0 f6       ..  :1cc6[1]
+; Set text window to 31,20 38,16. CLS. Reset windows. Move graphics cursor to 1004,418
     ldx #2                                                            ; 21c8: a2 02       ..  :1cc8[1]
     ldy #&1d                                                          ; 21ca: a0 1d       ..  :1cca[1]
     jsr oswrch_from_xy_addr_to_ff                                     ; 21cc: 20 ac 12     .. :1ccc[1]
@@ -3107,8 +3115,11 @@ l1707 = sub_c1706+1
 .return_16
     rts                                                               ; 21fd: 60          `   :1cfd[1]
 
-    equb &1f, &21, &0e, &ff, &1c, &1f, &14, &26, &10, &0c, &1a, &19   ; 21fe: 1f 21 0e... .!. :1cfe[1]
-    equb   4, &ec,   3, &a2,   1, &ff                                 ; 220a: 04 ec 03... ... :1d0a[1]
+.move_text_cursor_to_33_14_data
+    equb &1f, &21, &0e, &ff                                           ; 21fe: 1f 21 0e... .!. :1cfe[1]
+.text_window_31_20_38_16_cls_reset_windows_move_1004_418_data
+    equb &1c, &1f, &14, &26, &10, &0c, &1a, &19, 4, &ec, 3, &a2, 1    ; 2202: 1c 1f 14... ... :1d02[1]
+    equb &ff                                                          ; 220f: ff          .   :1d0f[1]
 ; &2210 referenced 2 times by &1ce9[1], &1cee[1]
 .l1d10
     equb 0                                                            ; 2210: 00          .   :1d10[1]
@@ -8726,6 +8737,7 @@ save pydis_start, pydis_end
 ;     loop_c6f57:                           1
 ;     loop_c6fab:                           1
 ;     loop_c782d:                           1
+;     move_text_cursor_to_33_14:            1
 ;     oscli:                                1
 ;     return_13:                            1
 ;     return_16:                            1
@@ -8760,7 +8772,6 @@ save pydis_start, pydis_end
 ;     sub_c13a5:                            1
 ;     sub_c14d1:                            1
 ;     sub_c1682:                            1
-;     sub_c1c8a:                            1
 ;     sub_c1d16:                            1
 ;     sub_c1e81:                            1
 ;     sub_c2593:                            1
@@ -9465,7 +9476,6 @@ save pydis_start, pydis_end
 ;     sub_c1682
 ;     sub_c1706
 ;     sub_c1b57
-;     sub_c1c8a
 ;     sub_c1d16
 ;     sub_c1d4e
 ;     sub_c1daf
