@@ -2024,6 +2024,7 @@ l139b = c1399+2
     lda dampers_setting                                               ; 1914: a5 0c       ..  :1414[1]
     adc #&80                                                          ; 1916: 69 80       i.  :1416[1]
     sta l149b                                                         ; 1918: 8d 9b 14    ... :1418[1]
+; Set foreground colour to 1 and background colour to 128. Update dials
     ldx #&84                                                          ; 191b: a2 84       ..  :141b[1]
     ldy #&14                                                          ; 191d: a0 14       ..  :141d[1]
     jsr oswrch_from_xy_addr_to_ff                                     ; 191f: 20 ac 12     .. :141f[1]

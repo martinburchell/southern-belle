@@ -58,6 +58,8 @@ label(0xd51, "save_command")
 comment(0xd9d, "Branch if not problem run")
 entry(0x12ac, label="oswrch_from_xy_addr_to_ff")
 comment(0x12fc, "Set the graphics window to 320,916,956,940 clear the graphics area, reset graphics and text windows, write text at the graphics cursor, move to absolute position 320, 940")
+comment(0x141b, "Set foreground colour to 1 and background colour to 128. Update dials")
+
 comment(0x157a, "Branch if heavy stopping train")
 comment(0x1580, "Branch if problem run")
 entry(0x176f, label="handle_menu_keypress")
